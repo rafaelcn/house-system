@@ -1,0 +1,11 @@
+{
+    "Address": "0.0.0.0",
+    "Port": "8080",
+    "Database": {
+        "Host": "localhost",
+        "Port": "5432",
+        "User": "ranu",
+        "Password": "",
+        "DatabaseName": ""
+    }
+}
