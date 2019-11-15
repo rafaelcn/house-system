@@ -33,6 +33,9 @@ func PGSQLConnect() *PostgreSQLConnection {
 
 		db, err := sql.Open("postgres", conn)
 
+		// Based on the users of the application
+		db.SetMaxOpenConns(10)
+
 		if err != nil {
 			log.Printf("[!] Couldn't connect to the database. Reason %v\n", err)
 			return nil
