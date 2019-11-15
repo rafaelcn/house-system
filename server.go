@@ -24,12 +24,15 @@ func Serve(address string, port string) {
 	router.HandleFunc("/register", HandleRegisterPage)
 
 	// REST API
-	//r.HandleFunc("/v1/people/")
-	//r.HandleFunc("/v1/people/{action}")
+	router.HandleFunc("/v1/user/{id}", HandleUser)
+	router.HandleFunc("/v1/user/{action}", HandleUser)
 
-	//r.HandleFunc("/v1/hardware/")
-	//r.HandleFunc("/v1/hardware/{action}")
-	//r.HandleFunc("/v1/hardware/{[0-9]}/{action}")
+	router.HandleFunc("/v1/people", HandlePeople)
+	//router.HandleFunc("/v1/people/{action}", HandlePeople)
+
+	router.HandleFunc("/v1/object/{id}", HandleObject)
+	router.HandleFunc("/v1/object/{action}", HandleObject)
+	router.HandleFunc("/v1/object/{[0-9]}/{action}", HandleObject)
 
 	router.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/",
 		http.FileServer(http.Dir("./html/assets/"))))
@@ -66,14 +69,32 @@ func HandleIndexPage(w http.ResponseWriter, r *http.Request) {
 	t.Execute(w, nil)
 }
 
+// HandleRegisterPage
 func HandleRegisterPage(w http.ResponseWriter, r *http.Request) {
+	t := template.Must(template.ParseFiles(
+		"html/templates/external.html",
+		"html/pages/register.html",
+	))
 
+	t.Execute(w, nil)
 }
 
+// HandleHelpPage
 func HandleHelpPage(w http.ResponseWriter, r *http.Request) {
+	t := template.Must(template.ParseFiles(
+		"html/templates/external.html",
+		"html/pages/help.html",
+	))
 
+	t.Execute(w, nil)
 }
 
+// HandleAboutPage
 func HandleAboutPage(w http.ResponseWriter, r *http.Request) {
+	t := template.Must(template.ParseFiles(
+		"html/templates/external.html",
+		"html/pages/about.html",
+	))
 
+	t.Execute(w, nil)
 }
