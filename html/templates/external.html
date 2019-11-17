@@ -6,18 +6,67 @@
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="assets/css/theme.css">
+        <link href="assets/css/theme.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="assets/css/bulma.min.css" type="text/css">
-        <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" type="text/css">
+        <link href="assets/css/bulma.min.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
 
     <body>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                  <img src="/assets/img/logo.png" width="64" height="80">
+                </a>
+            
+                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="external-navbar">
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                </a>
+              </div>
+
+              <div id="external-navbar" class="navbar-menu">
+                <div class="navbar-start">
+                  <div class="navbar-item">
+                    <a href="#concept" class="button is-light">
+                      O conceito
+                    </a>
+                  </div>
+
+                  <div class="navbar-item">
+                      <a href="#concept" class="button is-light">
+                        Como funciona?
+                      </a>
+                    </div>
+
+                  <div class="navbar-item">
+                    <a href="#about-us" class="button is-light">
+                      Sobre nós
+                    </a>
+                  </div>
+                </div>
+            
+                <div class="navbar-end">
+                  <div class="navbar-item">
+                    <div class="buttons">
+                      <a href="/sign-up" class="button is-primary">
+                        <strong>Inscrever-se</strong>
+                      </a>
+                      <a href="/login" class="button is-light">
+                        Log in
+                      </a>
+                    </div>
+                  </div>
+                </div>
+        </nav>
 
         {{ template "content" . }}
 
         <script src="assets/js/jquery-3.4.1.min.js"></script>
         <script src="assets/js/jquery.mask.min.js"></script>
+
+        <script src="assets/js/menu.min.js"></script>
 
         {{ template "script" . }}
     </body>

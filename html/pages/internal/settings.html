@@ -1,5 +1,99 @@
 {{ define "content" }}
-
+<section class="section is-medium">
+    <div class="columns is-centered">
+        <div class="column">
+            <form method="POST" action="">
+            <div class="field">
+                <div class="label">
+                    <label class="label">NOME DA CASA</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control is-expanded">
+                            <input name="name" class="input" type="text" placeholder="Nome da casa">
+                        </p>
+                    </div>
+                </div>
+            </div>
+                
+            <section class="section-padding">
+                <div class="field">
+                    <div class="label"></div>
+                    <div class="field-body">
+                        <div class="field is-expanded">
+                            <div class="field has-addons">
+                                <p class="control">
+                                    <a class="button is-white">
+                                        <i class="icon is-size-2 ion-md-people"></i>
+                                    </a>
+                                </p>
+                                <p class="subtitle is-4"><strong>PESSOAS</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="pessoas">
+                    <a href="#" target="_blank"><img src="https://bulma.io/images/placeholders/128x128.png"></a>
+                    <a href="#" target="_blank"><img src="https://bulma.io/images/placeholders/128x128.png"></a>
+                    <a href="#" target="_blank"><img src="https://bulma.io/images/placeholders/128x128.png"></a>
+                    <a href="#" target="_blank"><img src="https://bulma.io/images/placeholders/128x128.png"></a>
+                    <a href="#" target="_blank"><img src="https://bulma.io/images/placeholders/128x128.png"></a>
+                    <a href="#" target="_blank"><img src="https://bulma.io/images/placeholders/128x128.png"></a>
+                    <a href="#" target="_blank"><img src="https://bulma.io/images/placeholders/128x128.png"></a>
+                    <a href="#" target="_blank"><img src="https://bulma.io/images/placeholders/128x128.png"></a>
+                    <a href="#" target="_blank"><img src="https://bulma.io/images/placeholders/128x128.png"></a>
+                    <a href="#" target="_blank"><i class="material-icons md-128">face</i></a>
+                </div>
+                
+            </section>
+                
+            <section class="section"></section>   
+            
+            <div class="field">
+                <div class="label">
+                    <label class="label">NOTAS DA CASA</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <textarea name="home_notes" class="textarea" type="text" placeholder=""></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="field">
+                <div class="label">
+                    <!-- Left empty for spacing -->
+                </div>
+                <div class="field-body">
+                    <div class="field is-grouped is-grouped-centered">
+                        <div class="control">
+                            <button class="button is-primary">
+                                SALVAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </form>
+            
+        </div>
+        
+        <div class="column">
+            <h1 class="title">INSTRUÇÕES</h1>
+            <br>
+            <p>Nesta página você poderá configurar sua casa
+            assim como também os usuários da casa e suas
+            permissões, caso seja administrador.</p>
+            <br>
+            <p>Se você usuário mude seu email, credenciais
+            entre outras informações em seu perfil.</p>
+            
+        </div>
+    </div>
+    </section>
 {{ end }}
 
 {{ define "script" }}

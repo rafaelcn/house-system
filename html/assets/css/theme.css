@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'Comfortaa';
+    src: url(../fonts/Comfortaa-Regular.ttf) format('ttf') format('truetype'),
+         url(../fonts/Comfortaa-Light.ttf) format('ttf') format('truetype'),
+         url(../fonts/Comfortaa-Bold.ttf) format('ttf') format('truetype');
+}
+
+* {
+    font-family: 'Comfortaa', cursive !important; 
+}
