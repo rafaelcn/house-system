@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"time"
+	"io/ioutil"
 
 	_ "github.com/lib/pq"
 )
@@ -18,6 +19,23 @@ type PostgreSQLConnection struct {
 var (
 	connection *PostgreSQLConnection
 )
+
+// PGSQLInit initializes the database 
+func PGSQLInit() {
+	file, err := ioutil.ReadFile("database/database.sql")
+	
+	if err != nil {
+		log.Fatalf("[+] Couldn't init database. Reason %v", err)
+	}
+
+	db := PGSQLConnect()
+	if ok, err := db.Health(); !ok {
+		log.Fatalf("[!] Database is not healthy. Reason %v", err)
+	}
+
+	// Executes the file d 
+	_ = db.Execute(string(file), nil)
+}
 
 // PGSQLConnect to the PostgreSQL database configured
 func PGSQLConnect() *PostgreSQLConnection {
@@ -99,6 +117,37 @@ func (c *PostgreSQLConnection) Query(query string, arguments []interface{}) *sql
 	}
 
 	result, err := stmt.Query(arguments...)
+
+	if err != nil {
+		log.Printf("[!] Couldn't execute query. Reason %v", err)
+		return nil
+	}
+
+	return result
+}
+
+// Execute queries the database for a given query and returns the result of the
+// execution.
+func (c *PostgreSQLConnection) Execute(query string, arguments []interface{}) sql.Result {
+	if arguments == nil {
+		result, err :=  c.db.Exec(query)
+
+		if err != nil {
+			log.Printf("[!] Couldn't execute query. Reason %v", err)
+			return nil
+		}
+
+		return result
+	}
+
+	stmt, err := c.db.Prepare(query)
+
+	if err != nil {
+		log.Printf("[!] Couldn't prepare statement. Reason %v", err)
+		return nil
+	}
+
+	result, err := stmt.Exec(arguments...)
 
 	if err != nil {
 		log.Printf("[!] Couldn't execute query. Reason %v", err)
