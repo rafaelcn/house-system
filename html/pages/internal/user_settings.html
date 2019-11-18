@@ -1,56 +1,36 @@
 {{ define "content" }}
+
 <section>
-    <div class="navbar-menu is-active">
-
-        <div class="navbar-start">
-            <div class="navbar-item">
-                <!--h1 class="title is-3"> MINHA CASA</h1-->
-                <button class="button is-text has-text-centered is-medium">
-                    <span class="icon is-large">
-                        <!-- (Ýcone com o "font awesome") i class="fas fa-lg fa-arrows-alt-v has-text-weight-light has-text-grey-light"></i-->
-                        <span class="mdi mdi-menu has-text-black"></span>
-                    </span>
-                </button>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="hero">
-    <div class="container is-fluid mt-3 mb-3">
+    <div class="">
         <div class="columns has-text-centered is-centered">
             <span>
-                <figure class="image mb-2 is-128x128">
+                <figure class="image is-128x128">
                     <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-                    <!--img class="is-rounded" src="DeathStar2.jpg"-->
                 </figure>
-                <h5 class=" is-size-6 has-text-grey">
-                    André
+                <h5 class=" is-size-6 has-text-grey" id="user-name">
+                    ...
                 </h5>
             </span>
         </div>
     </div>
-</section>
 
-<section>
     <div class="columns is-centered is-mobile">
-        <form method="POST" action="/register_home" class="">
-            <div class="column is-11-mobile is-half-tablet">
-                <!-- E-mail -->
+        <form method="POST" action="/user-settings" class="">
+            <div class="column">
                 <div class="columns is-centered is-mobile">
                     <div class="column is-full-width">
                         Email
-                        <input class="input" name="username" type="text" placeholder="andre@outlook.com" required>
+                        <input class="input" name="username" type="text" placeholder="seu-email@provedor.com" required>
                     </div>
                 </div>
-                <!-- Senha -->
+                
                 <div class="columns is-centered is-mobile">
                     <div class="column is-full-width">
                         Senha
-                        <input class="input" name="password" type="password" placeholder="*****************" required>
+                        <input class="input" name="password" type="password" placeholder="••••••••••••••••••••" required>
                     </div>
                 </div>
-                <!-- Nascimento e Telefone -->
+
                 <div class="columns is-centered is-mobile">
                     <div class="column is-half-mobile is-full-width">
                         Data de Nascimento
@@ -63,9 +43,12 @@
 
                 </div>
 
-                <div class="columns is-mobile is-centered mt-3 is-paddingless">
-                    <button class="button is-warning has-text-white">
-                        <p class="m-sides-1">salvar</p>
+                <div class="level-right">
+                    <button class="button is-primary animate mr-1">
+                        Atualizar
+                    </button>
+                    <button class="button is-danger animate">
+                        Deletar
                     </button>
                 </div>
             </div>
@@ -75,5 +58,9 @@
 {{ end }}
 
 {{ define "script" }}
+
+    <script>
+        
+    </script>
 
 {{ end }}

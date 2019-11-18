@@ -13,8 +13,43 @@
     </head>
 
     <body>
-        <nav class="">
+        <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                    <img src="/assets/img/logo.png">
+                </a>
+            
+                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="external-navbar">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+                </div>
 
+                <div id="external-navbar" class="navbar-menu">
+                    <div class="navbar-start">
+                        <a href="/homepage" class="navbar-item">
+                            Acessórios
+                        </a>
+
+                        <a href="/settings" class="navbar-item">
+                            Configurações
+                        </a>
+
+                        <a href="/user-settings" class="navbar-item">
+                            Perfil
+                        </a>
+                    </div>
+            
+                <div class="navbar-end">
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <!-- <div class="navbar-dropdown is-boxed">
+                            <a class="navbar-item">
+                                ...
+                            </a>
+                        </div> -->
+                        <a href="/logout" class="navbar-item">Sair</a>
+                </div>
         </nav>
 
         {{ template "content" . }}
@@ -22,6 +57,8 @@
         <script src="assets/js/jquery-3.4.1.min.js"></script>
         <script src="assets/js/jquery.mask.min.js"></script>
 
+        <script src="assets/js/menu.min.js"></script>
+        
         {{ template "script" . }}
     </body>
 </html>

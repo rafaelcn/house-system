@@ -8,3 +8,54 @@
 * {
     font-family: 'Comfortaa', cursive !important; 
 }
+
+button {
+    text-transform: uppercase;
+}
+
+/* Components */
+
+.mt-1 {
+    margin-top: 3px;
+}
+
+.mt-2 {
+    margin-top: 5px;
+}
+
+.mt-3 {
+    margin-top: 10px;
+}
+
+.mt-4 {
+    margin-top: 15px;
+}
+
+.mt-5 {
+    margin-top: 25px;
+}
+
+.mb-1 {
+    margin-bottom: 3px;
+}
+
+.mr-1 {
+    margin-right: 3px;
+}
+
+.ml-1 {
+    margin-left: 3px;
+}
+
+.animate {
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+/* Bulma overrides */
+
+input:active, input:focus {
+    border-color: #40907F !important;
+    box-shadow: 0 0 0 0 !important;
+}
