@@ -47,6 +47,26 @@ button {
     margin-left: 3px;
 }
 
+.pb-1 { 
+    padding-bottom: 3px;
+}
+
+.pb-2 {
+    padding-bottom: 5px;
+}
+
+.pb-3 {
+    padding-bottom: 10px;
+}
+
+.pb-3 {
+    padding-bottom: 15px;
+}
+
+.pb-5 {
+    padding-bottom: 25px;
+}
+
 .animate {
     -webkit-transition: all 0.2s;
     -moz-transition: all 0.2s;
