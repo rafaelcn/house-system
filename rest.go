@@ -48,8 +48,24 @@ func HandleUser(w http.ResponseWriter, r *http.Request) {
 		}
 	} else if vars["action"] != "" {
 		switch vars["action"] {
-		case "update":
+		case "sign-up":
+			name := r.Form.Get("name")
+			email := r.Form.Get("email")
+			password := r.Form.Get("password")
+			phone := r.Form.Get("phone")
+			birth := r.Form.Get("birth")
 
+			db.Execute(AddUser, []interface{}{name, email, password, phone,
+				birth})
+		case "update":
+			name := r.Form.Get("name")
+			email := r.Form.Get("email")
+			password := r.Form.Get("password")
+			phone := r.Form.Get("phone")
+			birth := r.Form.Get("birth")
+
+			db.Execute(AddUser, []interface{}{name, email, password, phone,
+				birth})
 		case "delete":
 
 		default:
@@ -71,7 +87,7 @@ func HandlePeople(w http.ResponseWriter, r *http.Request) {
 	db := PGSQLConnect()
 
 	rows := db.Query(FetchUsers, []interface{}{})
-	
+
 	var response Response
 	var users []User
 
@@ -137,17 +153,49 @@ func HandleObject(w http.ResponseWriter, r *http.Request) {
 func HandleLogin(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
-	username := r.Form.Get("username")
+	username := r.Form.Get("email")
 	password := r.Form.Get("password")
 
 	db := PGSQLConnect()
 
-	db.QueryRow(Login, []interface{}{username, password})
+	row := db.Query(Login, []interface{}{username, password})
 
+	var response Response
+	var user User
+
+	for row.Next() {
+		err := row.Scan(&user.Mail, &user.Password)
+		response.Status = StatusOk
+
+		switch err {
+		case sql.ErrNoRows:
+			response.Content = "Email or password incorrect"
+
+			message, err := json.Marshal(response)
+
+			if err != nil {
+				Report500(&w,
+					fmt.Sprintf("[!] Couldn't encode data to json. Reason %v",
+						err))
+			} else {
+				http.Redirect(w, r, "/login", http.StatusSeeOther)
+				w.Write(message)
+			}
+			break
+		case nil:
+			// TODO: Create an user session
+			http.Redirect(w, r, "/homepage", http.StatusSeeOther)
+			break
+		}
+	}
 }
 
 // HandleLogout ...
-func HandleLogout(w http.ResponseWriter, r *http.Request) {}
+func HandleLogout(w http.ResponseWriter, r *http.Request) {
+	// TODO: Terminate user session
+
+	http.Redirect(w, r, "/", http.StatusSeeOther)
+}
 
 // Report500 reports an Internal Server Error (HTTP_500) to the client
 func Report500(w *http.ResponseWriter, message string) {
