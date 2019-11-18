@@ -29,6 +29,7 @@ func Serve(address string, port string) {
 	router.HandleFunc("/settings", HandleSettingsPage)
 	router.HandleFunc("/user-settings", HandleUserSettingsPage)
 	router.HandleFunc("/acessory", HandleAcessoryPage)
+	router.HandleFunc("/add-acessory", HandleAddAcessoryPage)
 
 	// REST API
 	router.HandleFunc("/v1/login", HandleLogin)
@@ -75,7 +76,7 @@ func HandleIndexPage(w http.ResponseWriter, r *http.Request) {
 		"html/pages/external/index.html",
 	))
 
-	d := PageData {
+	d := PageData{
 		Title: "Início",
 	}
 
@@ -89,7 +90,7 @@ func HandleLoginPage(w http.ResponseWriter, r *http.Request) {
 		"html/pages/external/login.html",
 	))
 
-	d := PageData {
+	d := PageData{
 		Title: "Login",
 	}
 
@@ -103,7 +104,7 @@ func HandleRegisterPage(w http.ResponseWriter, r *http.Request) {
 		"html/pages/external/register.html",
 	))
 
-	d := PageData {
+	d := PageData{
 		Title: "Registrar-se",
 	}
 
@@ -117,7 +118,7 @@ func HandleAboutPage(w http.ResponseWriter, r *http.Request) {
 		"html/pages/external/about.html",
 	))
 
-	d := PageData {
+	d := PageData{
 		Title: "Sobre",
 	}
 
