@@ -2,8 +2,16 @@ package main
 
 const (
 	AddUser = `
-		INSERT INTO TB_USER VALUES($1, $2, $3, $4, $5);
+		INSERT INTO TB_USER (USER_ID, USER_NAME, USER_EMAIL, USER_PASSWORD,
+							 USER_PHONE, USER_BIRTH)
+		VALUES(default, $1, $2, $3, $4, $5, 2);
 	`
+	AddAdmin = `
+	INSERT INTO TB_USER (USER_ID, USER_NAME, USER_EMAIL, USER_PASSWORD,
+		USER_PHONE, USER_BIRTH)
+	VALUES(default, $1, $2, $3, $4, $5, 1);
+	`
+
 	RemoveUser = `
 		DELETE FROM TB_USER WHERE USER_ID = $1;
 	`
