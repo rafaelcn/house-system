@@ -21,5 +21,8 @@ func main() {
 
 	configuration = Parse("config.json")
 
+	// Configures the house database to be used by the application
+	PGSQLInit()
+
 	Serve(*address, *port)
 }
