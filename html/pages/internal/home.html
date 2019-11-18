@@ -1,48 +1,6 @@
 {{ define "content" }}
 <div class="container is-fluid">
-    <div class="columns is-mobile is-multiline">
-        <div class="column is-2">
-            <div class="card">
-                <a href="/acessory/id">
-                    <div class="card-content has-text-centered">
-                        <i class="fa fa-8x fa-music"></i>
-                    </div>
-                </a>
-                <div class="has-text-centered p-3">
-                    <h6 class="has-text-grey">Volume</h6>
-                    <input type="range" min="0" max="100" value="20" class="slider is-fullwidth is-info" step="1">
-                </div>
-            </div>
-        </div>
-        
-
-        <div class="column is-2">
-            <div class="card animate">
-                <a href="/acessory/id">
-                    <div class="card-content has-text-centered is-warning">
-                        <i class="fa fa-8x fa-lightbulb"></i>
-                    </div>
-                </a>
-                <div class="has-text-centered p-3">
-                        <h6 class="has-text-grey">Intensidade</h6>
-                    <input type="range" min="0" max="100" value="50" class="slider is-fullwidth" step="1">
-                </div>
-            </div>
-        </div>
-
-        <div class="column is-2">
-            <div class="card">
-                <a href="/acessory/id">
-                    <div class="card-content has-text-centered">
-                        <i class="fa fa-8x fa-temperature-low"></i>
-                    </div>
-                </a>
-                <div class="has-text-centered p-3">
-                    <h6 class="has-text-grey">Temperatura</h6>
-                    <input type="range" min="16" max="27" value="22" class="slider is-fullwidth" step="1">
-                </div>
-            </div>
-        </div>
+    <div class="columns is-mobile is-multiline" id="acessories">
     </div>
 
     <div class="columns is-centered">
@@ -56,5 +14,66 @@
 {{ end }}
 
 {{ define "script" }}
+    <script>
+    'use strict'
 
+    let acessories = $("#acessories")
+    let data = axios.get('/v1/objects')
+
+    data.then(response => {
+        var bulb = '<i class="fa fa-8x fa-lightbulb"></i>'
+        var music = '<i class="fa fa-8x fa-music"></i>'
+        var air = '<i class="fa fa-8x fa-temperature-low"></i>'
+        var sensor = '<i class="fa fa-8x fa-wave-square"></i>'
+
+        if (response.data.Content != null) {
+            response.data.Content.forEach(elem => {
+                var icon
+                var message
+
+                switch (elem.Type) {
+                case 1:
+                    icon = bulb
+                    message = "Intensidade"
+                    break
+                case 2:
+                    icon = music
+                    message = "Volume"
+                    break
+                case 3:
+                    icon = air
+                    message = "Temperatura"
+                    break
+                case 4:
+                    icon = sensor
+                    message = "Distância"
+                }
+
+                var obj = '<div class="column is-2"> <div class="card animate">' +
+                    '<a href="/object/'+ elem.ID +'">' +
+                        '<span class="p-3 has-text-grey" id="object-name">' +
+                            elem.Name +
+                        '</span>' +
+                        '<div class="card-content has-text-centered is-warning" id="object-icon">' +
+                            icon +
+                        '</div>' +
+                    '</a>' +
+                    '<div class="has-text-centered p-3">' +
+                        '<h6 class="has-text-grey">'+ message +'</h6>' +
+                        '<input type="range" min="0" max="100" value="50" class="slider is-fullwidth" step="1">' +
+                    '</div></div></div>'
+
+                acessories.append(obj)
+            })
+
+        } else {
+            window.alert("Nenhum resultado encontrado")
+        }
+    })
+    
+    data.catch(error => {
+        window.alert(error)
+    })
+
+    </script>
 {{ end }}

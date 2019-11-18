@@ -143,7 +143,7 @@ func HandleObject(w http.ResponseWriter, r *http.Request) {
 	//db := PGSQLConnect()
 
 	if vars["id"] != "" {
-
+		
 	} else if vars["action"] != "" {
 		switch vars["action"] {
 		case "add":
