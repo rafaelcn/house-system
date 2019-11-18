@@ -153,40 +153,40 @@ func HandleObject(w http.ResponseWriter, r *http.Request) {
 func HandleLogin(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
-	username := r.Form.Get("email")
+	email := r.Form.Get("email")
 	password := r.Form.Get("password")
 
 	db := PGSQLConnect()
 
-	row := db.Query(Login, []interface{}{username, password})
+	row := db.db.QueryRow(Login, email, password)
 
-	var response Response
 	var user User
+	var response Response = Response{Status: StatusOk}
 
-	for row.Next() {
-		err := row.Scan(&user.Mail, &user.Password)
-		response.Status = StatusOk
+	err := row.Scan(&user.ID, &user.Name, &user.Mail, &user.Password,
+		&user.Phone, &user.Birth, &user.Type)
 
-		switch err {
-		case sql.ErrNoRows:
-			response.Content = "Email or password incorrect"
+	switch err {
+	case sql.ErrNoRows:
+		response.Content = "Email or password incorrect"
 
-			message, err := json.Marshal(response)
+		message, err := json.Marshal(response)
 
-			if err != nil {
-				Report500(&w,
-					fmt.Sprintf("[!] Couldn't encode data to json. Reason %v",
-						err))
-			} else {
-				http.Redirect(w, r, "/login", http.StatusSeeOther)
-				w.Write(message)
-			}
-			break
-		case nil:
-			// TODO: Create an user session
-			http.Redirect(w, r, "/homepage", http.StatusSeeOther)
-			break
+		if err != nil {
+			Report500(&w,
+				fmt.Sprintf("[!] Couldn't encode data to json. Reason %v",
+					err))
+		} else {
+			http.Redirect(w, r, "/login", http.StatusSeeOther)
+			w.Write(message)
 		}
+		break
+	case nil:
+		// TODO: Create an user session
+		http.Redirect(w, r, "/homepage", http.StatusSeeOther)
+		break
+	default:
+		log.Printf("[!] Unknown error: %v", err)
 	}
 }
 
