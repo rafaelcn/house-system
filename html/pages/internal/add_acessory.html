@@ -1,10 +1,28 @@
 {{ define "content" }}
 <section class="container" style="height:90vh; display: flex; align-items: center; justify-content: center;">
     <div class="column is-centered is-5-widescreen">
-        <i class="mdi mdi-face"></i>
+        <div class="has-text-centered mb-5">
+            <i class="fa fa-10x fa-qrcode"></i>
+        </div>
+
         <form method="POST" action="">
             <div class="field">
+                <input name="name" type="text" class="input" placeholder="Nome do acessório" required>
+            </div>
+
+            <div class="field">
                 <input name="code" type="text" class="input" placeholder="Código do acessório" required>
+            </div>
+
+            <div class="field has-text-right">
+                <div class="select">
+                    <select name="type">
+                        <option value="light">Luz</option>
+                        <option value="light">Som</option>
+                        <option value="light">Sensor</option>
+                        <option value="light">Condicionador de ar</option>
+                    </select>
+                </div>
             </div>
 
             <div class="field is-pulled-right mt-3">
