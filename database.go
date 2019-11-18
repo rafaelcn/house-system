@@ -4,9 +4,9 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"time"
-	"io/ioutil"
 
 	_ "github.com/lib/pq"
 )
@@ -20,10 +20,10 @@ var (
 	connection *PostgreSQLConnection
 )
 
-// PGSQLInit initializes the database 
+// PGSQLInit initializes the database
 func PGSQLInit() {
 	file, err := ioutil.ReadFile("database/database.sql")
-	
+
 	if err != nil {
 		log.Fatalf("[+] Couldn't init database. Reason %v", err)
 	}
@@ -33,7 +33,7 @@ func PGSQLInit() {
 		log.Fatalf("[!] Database is not healthy. Reason %v", err)
 	}
 
-	// Executes the file d 
+	// Executes the file d
 	_ = db.Execute(string(file), nil)
 }
 
@@ -126,11 +126,15 @@ func (c *PostgreSQLConnection) Query(query string, arguments []interface{}) *sql
 	return result
 }
 
+func (c *PostgreSQLConnection) QueryRow(query string, arguments []interface{}) *sql.Row {
+	return c.db.QueryRow(query, arguments...)
+}
+
 // Execute queries the database for a given query and returns the result of the
 // execution.
 func (c *PostgreSQLConnection) Execute(query string, arguments []interface{}) sql.Result {
 	if arguments == nil {
-		result, err :=  c.db.Exec(query)
+		result, err := c.db.Exec(query)
 
 		if err != nil {
 			log.Printf("[!] Couldn't execute query. Reason %v", err)
