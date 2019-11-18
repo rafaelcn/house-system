@@ -1,57 +1,57 @@
 {{ define "content" }}
 <div class="container is-fluid">
     <section class="section is-medium has-text-centered">
-        <h1 class="title">Junte-se a sua <b>nova</b> casa</h1>    
+        <h1 class="title">Junte-se a sua nova casa</h1>    
     </section>
         
-    <section class="section-padding">
-            <div class="columns is-centered">
-                <div class="column is-two-thirds">
-                    
-                    <form method="POST" action="/v1/user/add" >
-                        <div class="field">
-                            <label class="label">Email</label>
-                            <div class="control">
-                                <input name="email" class="input" type="email" placeholder="rafaelnunes@outlook.com">
-                            </div>
-                        </div>
-                        
-                        <div class="field">
-                            <label class="label">Senha</label>
-                            <div class="control">
-                                <input name="password" class="input" type="password" placeholder="">
-                            </div>
-                        </div>
-                        
-                        <div class="field is-horizontal">
-                            <div class="field-body">
-                                <div class="field">
-                                    <label class="label">Data de Nascimento</label>
-                                    <p class="control is-expanded">
-                                        <input name="birth" class="input" type="text" placeholder="15/07/1996">
-                                    </p>
-                                </div>
-
-                                <div class="field">
-                                    <label class="label">Telefone</label>
-                                    <p class="control is-expanded">
-                                        <input name="phone" class="input" type="tel" placeholder="(45) 99921-1235">
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="field is-pulled-right">
-                            <button class="button is-primary animate">
-                                Criar conta
-                            </button>
-                        </div>
-                    </form>
+    <div class="columns is-centered">
+        <div class="column is-two-thirds">
+            <form method="POST" action="/v1/user/add">
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control">
+                        <input name="email" class="input" type="email" placeholder="rafaelnunes@outlook.com">
+                    </div>
                 </div>
-            </div>
-    </section>
-        
+                
+                <div class="field">
+                    <label class="label">Senha</label>
+                    <div class="control">
+                        <input name="password" class="input" type="password" placeholder="">
+                    </div>
+                </div>
+                
+                <div class="field is-horizontal">
+                    <div class="field-body">
+                        <div class="field">
+                            <label class="label">Data de Nascimento</label>
+                            <p class="control is-expanded">
+                                <input name="birth" class="input" type="text" placeholder="15/07/1996">
+                            </p>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Telefone</label>
+                            <p class="control is-expanded">
+                                <input name="phone" class="input" type="tel" placeholder="(45) 99921-1235">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="field">
+                    Ao clicar em <b>criar</b> conta você aceita os <b>Termos e Condições de Uso</b> da plataforma.
+                </div>
+
+                <div class="field is-pulled-right pb-5">
+                    <button class="button is-primary animate">
+                        Criar conta
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
+</div>
 {{ end }}
 
 {{ define "script" }}
