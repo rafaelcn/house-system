@@ -1,56 +1,52 @@
 {{ define "content" }}
 
-<section>
-    <div class="">
-        <div class="columns has-text-centered is-centered">
-            <span>
-                <figure class="image is-128x128">
-                    <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-                </figure>
-                <h5 class=" is-size-6 has-text-grey" id="user-name">
-                    ...
-                </h5>
-            </span>
+<section style="height:90vh; display: flex; align-items: center; justify-content: center;">
+    <div class="column is-centered is-4-widescreen">
+        <div class="has-text-centered" style="display: flex; align-items: center; flex-direction: column">
+            <figure class="image is-128x128">
+                <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+            </figure>
+            <h5 class=" is-size-6 has-text-grey" id="user-name">
+                ...
+            </h5>
         </div>
-    </div>
 
-    <div class="columns is-centered is-mobile">
         <form method="POST" action="/user-settings" class="">
-            <div class="column">
-                <div class="columns is-centered is-mobile">
-                    <div class="column is-full-width">
-                        Email
-                        <input class="input" name="username" type="text" placeholder="seu-email@provedor.com" required>
-                    </div>
-                </div>
+            <div class="field is-full-width">
+                <label for="" class="label">Email</label>
+                <input class="input" name="username" type="text" placeholder="seu-email@provedor.com" required>
+            </div>
                 
-                <div class="columns is-centered is-mobile">
-                    <div class="column is-full-width">
-                        Senha
-                        <input class="input" name="password" type="password" placeholder="••••••••••••••••••••" required>
-                    </div>
-                </div>
+            <div class="field is-full-width">
+                <label for="" class="label">Senha</label>
+                <input class="input" name="password" type="password" placeholder="••••••••••••••••••••" required>
+            </div>
 
-                <div class="columns is-centered is-mobile">
-                    <div class="column is-half-mobile is-full-width">
-                        Data de Nascimento
-                        <input class="input" name="birth" type="text" placeholder="15/07/1996" required>
-                    </div>
-                    <div class="column is-half-mobile is-full-width">
-                        Telefone
-                        <input class="input" type="tel" placeholder="(45) 99921-1031" required>
+            <div class="field is-horizontal">
+                <div class="field-body">
+                    <div class="field">
+                        <label class="label">Data de Nascimento</label>
+                        <p class="control is-expanded">
+                            <input name="birth" class="input" type="text" placeholder="15/07/1996">
+                        </p>
                     </div>
 
+                    <div class="field">
+                        <label class="label">Telefone</label>
+                        <p class="control is-expanded">
+                            <input name="phone" class="input" type="tel" placeholder="(45) 99921-1235">
+                        </p>
+                    </div>
                 </div>
+            </div>
 
-                <div class="is-pulled-right">
-                    <button class="button is-primary animate mr-1">
-                        Atualizar
-                    </button>
-                    <button class="button is-danger animate disabled">
-                        Deletar
-                    </button>
-                </div>
+            <div class="field is-pulled-right mt-5">
+                <button class="button is-primary animate mr-1">
+                    Atualizar
+                </button>
+                <button class="button is-danger animate disabled">
+                    Deletar
+                </button>
             </div>
         </form>
     </div>
