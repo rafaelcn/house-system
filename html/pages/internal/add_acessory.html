@@ -1,7 +1,30 @@
 {{ define "content" }}
+<section class="container" style="height:90vh; display: flex; align-items: center; justify-content: center;">
+    <div class="column is-centered is-5-widescreen">
+        <i class="mdi mdi-face"></i>
+        <form method="POST" action="">
+            <div class="field">
+                <input name="code" type="text" class="input" placeholder="Código do acessório" required>
+            </div>
 
+            <div class="field is-pulled-right mt-3">
+                <button class="button is-primary animate">
+                    Adicionar acessório
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
 {{ end }}
 
 {{ define "script" }}
-
+    <script>
+        let form = $("form")
+    
+        form.submit(e => {
+            e.preventDefault()
+            
+            
+        })
+    </script>
 {{ end }}
