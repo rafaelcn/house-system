@@ -1,43 +1,37 @@
 {{ define "content" }}
-<section class="section ">
-    <div class="container is-fluid ">
-        <div class="columns is-centered is-mobile ">
-            <div class="column is is-11-mobile is-4-tablet is-5-widescreen ">
-                <!--div class="container is-fluid"-->
-                <div class="columns mt-3 is-centered">
-                    <div class="column is-11 has-text-centered">
-                        <h1 class="title mb-5 is-2">
-                            Entre em sua nova casa
-                        </h1> <!-- Título principal com margem -->
-                    </div>
-                </div>
-
-                <form method="POST" action="/v1/login">
-                    <div class="columns is-centered">
-                        <div class="column is-full-width">
-                            <input name="email" class="input" type="text" placeholder="Email" required>
-                        </div>
-                    </div>
-                    <div class="columns is-centered">
-                        <div class="column is-full-width">
-                            <input name="password" class="input" type="password" placeholder="Senha" required>
-                        </div>
-                    </div>
-
-                    <div class="columns is-mobile is-centered">
-                        <div class="column">
-                            <button class="button is-pulled-right is-primary">
-                                Login
-                            </button>
-                        </div>
-                    </div>
-                </form>
+<section class="" style="height:90vh; display: flex; align-items: center; justify-content: center;">
+    <div class="column is-4-tablet is-4-widescreen">
+        <div class="columns mt-3 is-centered">
+            <div class="column is-11 has-text-centered">
+                <h1 class="title mb-5">
+                    Entre em sua nova casa
+                </h1> 
             </div>
         </div>
-    </div>
-    </div>
 
+        <form method="POST" action="/v1/login">
+            <div class="columns is-centered">
+                <div class="column is-full-width">
+                    <input name="email" class="input" type="text" placeholder="Email" required>
+                </div>
+            </div>
+            <div class="columns is-centered">
+                <div class="column is-full-width">
+                    <input name="password" class="input" type="password" placeholder="Senha" required>
+                </div>
+            </div>
+
+            <div class="columns is-mobile is-centered">
+                <div class="column">
+                    <button class="button is-pulled-right is-primary animate">
+                        <b>Login</b>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
 </section>
+
 {{ end }}
 
 {{ define "script" }}

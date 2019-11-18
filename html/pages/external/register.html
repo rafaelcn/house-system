@@ -8,74 +8,45 @@
             <div class="columns is-centered">
                 <div class="column is-two-thirds">
                     
-                    <form method="POST" action="/register_home" class="">
-                        
-                        <label class="label">Email</label>
+                    <form method="POST" action="/v1/user/add" >
                         <div class="field">
+                            <label class="label">Email</label>
                             <div class="control">
                                 <input name="email" class="input" type="email" placeholder="rafaelnunes@outlook.com">
                             </div>
                         </div>
                         
-                        <label class="label">Senha</label>
                         <div class="field">
+                            <label class="label">Senha</label>
                             <div class="control">
                                 <input name="password" class="input" type="password" placeholder="">
                             </div>
                         </div>
                         
-                        <div class="columns is-centered">
-                        <div class="column">    
-                        <label class="label">Data de Nascimento</label>
                         <div class="field is-horizontal">
                             <div class="field-body">
                                 <div class="field">
+                                    <label class="label">Data de Nascimento</label>
                                     <p class="control is-expanded">
                                         <input name="birth" class="input" type="text" placeholder="15/07/1996">
                                     </p>
                                 </div>
-                                
-                            </div>
-                        </div>
-                        </div>
-                        
-                        <div class="column">    
-                        <label class="label">Telefone</label>
-                        <div class="field is-horizontal">
-                            
-                            <div class="field-body">
+
                                 <div class="field">
+                                    <label class="label">Telefone</label>
                                     <p class="control is-expanded">
                                         <input name="phone" class="input" type="tel" placeholder="(45) 99921-1235">
                                     </p>
                                 </div>
-                                
                             </div>
-                        </div>
-                        </div>
                         </div>
                         
-                        <section class="section-padding">
-                        <nav class="level is-mobile">
-                            <div class="level-left has-text-centered">
-                                <div class="level-item">
-        
-                                </div>
-                            </div>
-                            <div class="level-right has-text-centered">
-                                <div class="level-item">
-                                    <p class="control">
-                                        <button class="button is-primary">
-                                            CRIAR CONTA
-                                        </button>
-                                    </p>
-                                </div>
-                            </div>
-                        </nav>
-                        </section>
-                        
+                        <div class="field is-pulled-right">
+                            <button class="button is-primary animate">
+                                Criar conta
+                            </button>
+                        </div>
                     </form>
-                    
                 </div>
             </div>
     </section>
