@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -19,29 +20,31 @@ func HandleUser(w http.ResponseWriter, r *http.Request) {
 	var response Response
 
 	if vars["id"] != "" {
-		row := db.QueryRow(SelectUser, []interface{}{vars["id"]})
+		row := db.Query(SelectUser, []interface{}{vars["id"]})
+		var user User
 
-		if row != nil {
-			var user User
+		for row.Next() {
+			err := row.Scan(&user.ID, &user.Name, &user.Mail, &user.Phone,
+				&user.Birth,
+				&user.Type)
 
-			row.Scan(&user.ID)
-			row.Scan(&user.Name)
-			row.Scan(&user.Mail)
-			row.Scan(&user.Phone)
-			row.Scan(&user.Birth)
-			row.Scan(&user.Type)
+			switch err {
+			case sql.ErrNoRows:
+				response.Status = StatusError
 
-			response.Status = StatusOk
-			response.Content = user
-		} else {
-			response.Status = StatusError
-			
-			e := Error {
-				Code: ErrorDatabaseResponse,
-				Description: "Database request error, notify the developer.",
+				errorMessage := fmt.Sprintf("Database request error, "+
+					"notify the developer about %v.", err.Error())
+
+				e := Error{
+					Code:        ErrorDatabaseResponse,
+					Description: errorMessage,
+				}
+
+				response.Content = e
+			case nil:
+				response.Status = StatusOk
+				response.Content = user
 			}
-
-			response.Content = e
 		}
 	} else if vars["action"] != "" {
 		switch vars["action"] {
@@ -67,11 +70,48 @@ func HandleUser(w http.ResponseWriter, r *http.Request) {
 func HandlePeople(w http.ResponseWriter, r *http.Request) {
 	db := PGSQLConnect()
 
-	results := db.Query(FetchUsers, []interface{}{})
+	rows := db.Query(FetchUsers, []interface{}{})
+	
+	var response Response
+	var users []User
 
-	for results.Next() {
+	for rows.Next() {
+		var user User
 
+		err := rows.Scan(&user.ID, &user.Name, &user.Mail, &user.Phone,
+			&user.Birth,
+			&user.Type)
+
+		switch err {
+		case sql.ErrNoRows:
+			response.Status = StatusError
+
+			errorMessage := fmt.Sprintf("Database request error, "+
+				"notify the developer about %v.", err.Error())
+
+			e := Error{
+				Code:        ErrorDatabaseResponse,
+				Description: errorMessage,
+			}
+
+			response.Content = e
+			break
+		case nil:
+			response.Status = StatusOk
+
+			users = append(users, user)
+
+			response.Content = users
+		}
 	}
+	message, err := json.Marshal(response)
+
+	if err != nil {
+		Report500(&w,
+			fmt.Sprintf("[!] Error encoding data to json. Reason %v", err))
+	}
+
+	w.Write(message)
 }
 
 // HandleHardware
@@ -94,7 +134,17 @@ func HandleObject(w http.ResponseWriter, r *http.Request) {
 }
 
 // HandleLogin ...
-func HandleLogin(w http.ResponseWriter, r *http.Request) {}
+func HandleLogin(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+
+	username := r.Form.Get("username")
+	password := r.Form.Get("password")
+
+	db := PGSQLConnect()
+
+	db.QueryRow(Login, []interface{}{username, password})
+
+}
 
 // HandleLogout ...
 func HandleLogout(w http.ResponseWriter, r *http.Request) {}
