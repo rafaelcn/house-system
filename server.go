@@ -27,9 +27,11 @@ func Serve(address string, port string) {
 	// Internal pages
 	router.HandleFunc("/homepage", HandleHomePage)
 	router.HandleFunc("/settings", HandleSettingsPage)
-	router.HandleFunc("/user-settings", HandleUserSettingsPage)
 	router.HandleFunc("/acessory", HandleAcessoryPage)
+	router.HandleFunc("/invite", HandleInvitePage)
 	router.HandleFunc("/add-acessory", HandleAddAcessoryPage)
+	router.HandleFunc("/user-settings", HandleUserSettingsPage)
+	
 
 	// REST API
 	router.HandleFunc("/v1/login", HandleLogin)
@@ -134,7 +136,11 @@ func HandleHomePage(w http.ResponseWriter, r *http.Request) {
 		"html/pages/internal/home.html",
 	))
 
-	t.Execute(w, nil)
+	d := PageData{
+		Title: "Acessórios",
+	}
+
+	t.Execute(w, d)
 }
 
 // HandleSettingsPage ...
@@ -144,7 +150,11 @@ func HandleSettingsPage(w http.ResponseWriter, r *http.Request) {
 		"html/pages/internal/settings.html",
 	))
 
-	t.Execute(w, nil)
+	d := PageData{
+		Title: "Configurações",
+	}
+
+	t.Execute(w, d)
 }
 
 // HandleSettingsPage ...
@@ -154,7 +164,11 @@ func HandleUserSettingsPage(w http.ResponseWriter, r *http.Request) {
 		"html/pages/internal/user_settings.html",
 	))
 
-	t.Execute(w, nil)
+	d := PageData{
+		Title: "Configurações de usuário",
+	}
+
+	t.Execute(w, d)
 }
 
 // HandleAddAcessoryPage ...
@@ -164,7 +178,11 @@ func HandleAddAcessoryPage(w http.ResponseWriter, r *http.Request) {
 		"html/pages/internal/add_acessory.html",
 	))
 
-	t.Execute(w, nil)
+	d := PageData{
+		Title: "Adicionar acessório",
+	}
+
+	t.Execute(w, d)
 }
 
 // HandleAcessoryPage ...
@@ -174,8 +192,27 @@ func HandleAcessoryPage(w http.ResponseWriter, r *http.Request) {
 		"html/pages/internal/acessory.html",
 	))
 
-	t.Execute(w, nil)
+	d := PageData{
+		Title: "Acessórios",
+	}
+
+	t.Execute(w, d)
 }
+
+// HandleAcessoryPage ...
+func HandleInvitePage(w http.ResponseWriter, r *http.Request) {
+	t := template.Must(template.ParseFiles(
+		"html/templates/internal.html",
+		"html/pages/internal/add_person.html",
+	))
+
+	d := PageData{
+		Title: "Convite",
+	}
+
+	t.Execute(w, d)
+}
+
 
 // HandleHelpPage ...
 func HandleHelpPage(w http.ResponseWriter, r *http.Request) {
@@ -184,5 +221,9 @@ func HandleHelpPage(w http.ResponseWriter, r *http.Request) {
 		"html/pages/internal/help.html",
 	))
 
-	t.Execute(w, nil)
+	d := PageData{
+		Title: "Ajuda",
+	}
+
+	t.Execute(w, d)
 }

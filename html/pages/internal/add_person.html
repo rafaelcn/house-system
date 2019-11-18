@@ -1,0 +1,34 @@
+{{ define "content" }}
+<section class="container" style="height:90vh; display: flex; align-items: center; justify-content: center;">
+    <div class="column is-centered is-5-widescreen">
+        <div class="has-text-centered mb-5">
+            <i class="fa fa-8x fa-user-plus"></i>
+        </div>
+
+        <form method="POST" action="">
+            <div class="field">
+                <label for="">Email do usuário</label>
+                <input name="name" type="text" class="input" placeholder="rodrigo@gmail.com" required>
+            </div>
+
+            <div class="field is-pulled-right mt-3">
+                <button class="button is-primary animate">
+                    Convidar pessoa
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+{{ end }}
+
+{{ define "script" }}
+    <script>
+        let form = $("form")
+    
+        form.submit(e => {
+            e.preventDefault()
+            
+            
+        })
+    </script>
+{{ end }}
