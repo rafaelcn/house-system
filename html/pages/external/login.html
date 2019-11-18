@@ -41,5 +41,13 @@
 {{ end }}
 
 {{ define "script" }}
+    <script>
+        'use strict'
 
+        let left = $(".navbar-start")
+        let right = $(".navbar-end")
+
+        left.html("")
+        right.html("")
+    </script>
 {{ end }}
