@@ -1,22 +1,46 @@
 {{ define "content" }}
 <div class="container is-fluid">
     <div class="columns is-mobile is-multiline">
-        <div class="column is-fullwidth">
+        <div class="column is-2">
             <div class="card">
                 <a href="/acessory/id">
-                    <div class="has-background-grey-lighter">
-                        <div class="card-image">
-                            <figure class="image mt-1 is-128x128">
-                                <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-                            </figure>
-                        </div>
-                        <footer class="card-footer mt-1">
-                            <div class="card-footer-item has-text-grey has-text-centered is-size-6 ">
-                                <p>Texto exemplo</p>
-                            </div>
-                        </footer>
+                    <div class="card-content has-text-centered">
+                        <i class="fa fa-8x fa-music"></i>
                     </div>
                 </a>
+                <div class="has-text-centered p-3">
+                    <h6 class="has-text-grey">Volume</h6>
+                    <input type="range" min="0" max="100" value="20" class="slider is-fullwidth is-info" step="1">
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="column is-2">
+            <div class="card animate">
+                <a href="/acessory/id">
+                    <div class="card-content has-text-centered is-warning">
+                        <i class="fa fa-8x fa-lightbulb"></i>
+                    </div>
+                </a>
+                <div class="has-text-centered p-3">
+                        <h6 class="has-text-grey">Intensidade</h6>
+                    <input type="range" min="0" max="100" value="50" class="slider is-fullwidth" step="1">
+                </div>
+            </div>
+        </div>
+
+        <div class="column is-2">
+            <div class="card">
+                <a href="/acessory/id">
+                    <div class="card-content has-text-centered">
+                        <i class="fa fa-8x fa-temperature-low"></i>
+                    </div>
+                </a>
+                <div class="has-text-centered p-3">
+                    <h6 class="has-text-grey">Temperatura</h6>
+                    <input type="range" min="16" max="27" value="22" class="slider is-fullwidth" step="1">
+                </div>
             </div>
         </div>
     </div>
