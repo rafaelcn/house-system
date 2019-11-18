@@ -54,9 +54,10 @@
 {{ end }}
 
 {{ define "script" }}
-
+    <script src="/assets/js/axios.min.js"></script>
+    <script src="/assets/js/fill.js"></script>
+    
     <script>
-        
+        $(document).ready( () => {fill(1);});
     </script>
-
 {{ end }}
