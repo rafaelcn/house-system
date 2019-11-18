@@ -31,7 +31,6 @@ func Serve(address string, port string) {
 	router.HandleFunc("/invite", HandleInvitePage)
 	router.HandleFunc("/add-acessory", HandleAddAcessoryPage)
 	router.HandleFunc("/user-settings", HandleUserSettingsPage)
-	
 
 	// REST API
 	router.HandleFunc("/v1/login", HandleLogin)
@@ -42,6 +41,7 @@ func Serve(address string, port string) {
 
 	router.HandleFunc("/v1/people", HandlePeople)
 
+	router.HandleFunc("/v1/objects", HandleObjects)
 	router.HandleFunc("/v1/object/{id}", HandleObject)
 	router.HandleFunc("/v1/object/{action}", HandleObject)
 	router.HandleFunc("/v1/object/{[0-9]}/{action}", HandleObject)
@@ -212,7 +212,6 @@ func HandleInvitePage(w http.ResponseWriter, r *http.Request) {
 
 	t.Execute(w, d)
 }
-
 
 // HandleHelpPage ...
 func HandleHelpPage(w http.ResponseWriter, r *http.Request) {

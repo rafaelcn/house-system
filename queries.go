@@ -7,9 +7,9 @@ const (
 		VALUES(default, $1, $2, $3, $4, $5, 2);
 	`
 	AddAdmin = `
-	INSERT INTO TB_USER (USER_ID, USER_NAME, USER_EMAIL, USER_PASSWORD,
-		USER_PHONE, USER_BIRTH)
-	VALUES(default, $1, $2, $3, $4, $5, 1);
+		INSERT INTO TB_USER (USER_ID, USER_NAME, USER_EMAIL, USER_PASSWORD,
+			USER_PHONE, USER_BIRTH)
+		VALUES(default, $1, $2, $3, $4, $5, 1);
 	`
 
 	RemoveUser = `
@@ -42,6 +42,10 @@ const (
 	`
 	SelectObject = `
 		SELECT * FROM TB_OBJECT WHERE OBJECT_ID = $1;
+	`
+	
+	FetchObjects = `
+			SELECT * FROM TB_OBJECT;
 	`
 
 	SetStateObject = `

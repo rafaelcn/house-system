@@ -57,6 +57,9 @@ func HandleUser(w http.ResponseWriter, r *http.Request) {
 
 			db.Execute(AddUser, []interface{}{name, email, password, phone,
 				birth})
+
+			// Make sure the user will login
+			http.Redirect(w, r, "/login", http.StatusSeeOther)
 		case "update":
 			name := r.Form.Get("name")
 			email := r.Form.Get("email")
@@ -67,6 +70,9 @@ func HandleUser(w http.ResponseWriter, r *http.Request) {
 			db.Execute(AddUser, []interface{}{name, email, password, phone,
 				birth})
 		case "delete":
+			id := r.Form.Get("id")
+			db.Execute(RemoveUser, []interface{}{id})
+		case "invite":
 
 		default:
 		}
@@ -146,6 +152,54 @@ func HandleObject(w http.ResponseWriter, r *http.Request) {
 
 		default:
 		}
+	}
+}
+
+// HandleObjects ...
+func HandleObjects(w http.ResponseWriter, r *http.Request) {
+	db := PGSQLConnect()
+
+	rows := db.Query(FetchObjects, []interface{}{})
+
+	var response Response
+	var objects []Object
+	var err error
+
+	for rows.Next() {
+		var object Object
+
+		err = rows.Scan(&object.ID, &object.Name, &object.Status, &object.Type,
+			&object.House, &object.Intensity, &object.Volume, &object.Distance,
+			&object.Temperature)
+
+		if err != nil {
+			errorMessage := fmt.Sprintf("Database request error, "+
+			"notify the developer about %v.", err.Error())
+
+			e := Error {
+				Code: ErrorDatabaseResponse,
+				Description: errorMessage,
+			}
+
+			response.Status = StatusError
+			response.Content = e
+		}
+
+		objects = append(objects, object)
+	}
+
+	if err == nil {
+		response.Status = StatusOk
+		response.Content = objects
+	}
+
+	message, err := json.Marshal(response)
+
+	if err != nil {
+		Report500(&w,
+			fmt.Sprintf("[!] Couldn't encode data in json. Reason %v", err))
+	} else {
+		w.Write(message)
 	}
 }
 
