@@ -7,20 +7,23 @@
 
         <form method="POST" action="">
             <div class="field">
-                <input name="name" type="text" class="input" placeholder="Nome do acessório" required>
+                <label for="">Nome do acessório</label>
+                <input name="name" type="text" class="input" placeholder="Iluminação sala" required>
             </div>
 
             <div class="field">
-                <input name="code" type="text" class="input" placeholder="Código do acessório" required>
+                <label for="">Código do acessório</label>
+                <input name="code" type="text" class="input" placeholder="A34D3F" required>
             </div>
 
-            <div class="field has-text-right">
-                <div class="select">
+            <div class="field">
+                <label for="">Tipo do acessório</label>
+                <div class="select is-fullwidth">
                     <select name="type">
                         <option value="light">Luz</option>
-                        <option value="light">Som</option>
-                        <option value="light">Sensor</option>
-                        <option value="light">Condicionador de ar</option>
+                        <option value="sound">Som</option>
+                        <option value="sensor">Sensor</option>
+                        <option value="air-conditioner">Condicionador de ar</option>
                     </select>
                 </div>
             </div>
