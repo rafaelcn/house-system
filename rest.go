@@ -138,18 +138,38 @@ func HandlePeople(w http.ResponseWriter, r *http.Request) {
 
 // HandleHardware
 func HandleObject(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
 	vars := mux.Vars(r)
 
-	//db := PGSQLConnect()
+	db := PGSQLConnect()
 
 	if vars["id"] != "" {
-		
+
 	} else if vars["action"] != "" {
 		switch vars["action"] {
 		case "add":
+			objectID := r.Form.Get("code")
+			objectName := r.Form.Get("name")
+			objectType := r.Form.Get("type")
+			objectNType := -1
 
+			switch objectType {
+			case "light":
+				objectNType = 1
+			case "sound":
+				objectNType = 2
+			case "air-conditioner":
+				objectNType = 3
+			case "sensor":
+				objectNType = 4
+			}
+
+			_ = db.Execute(AddObject, []interface{}{objectID,
+				objectName, false, objectNType, 1, 0.0, 0.0, 0.0, 0.0})
 		case "delete":
+			objectID := r.Form.Get("code")
 
+			db.Execute(RemoveObject, []interface{}{objectID})
 		default:
 		}
 	}
@@ -174,10 +194,10 @@ func HandleObjects(w http.ResponseWriter, r *http.Request) {
 
 		if err != nil {
 			errorMessage := fmt.Sprintf("Database request error, "+
-			"notify the developer about %v.", err.Error())
+				"notify the developer about %v.", err.Error())
 
-			e := Error {
-				Code: ErrorDatabaseResponse,
+			e := Error{
+				Code:        ErrorDatabaseResponse,
 				Description: errorMessage,
 			}
 
