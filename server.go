@@ -36,15 +36,14 @@ func Serve(address string, port string) {
 	router.HandleFunc("/v1/login", HandleLogin)
 	router.HandleFunc("/v1/logout", HandleLogout)
 
-	router.HandleFunc("/v1/user/{id}", HandleUser)
 	router.HandleFunc("/v1/user/{action}", HandleUser)
+	router.HandleFunc("/v1/user/{action}/{id}", HandleUser)
 
 	router.HandleFunc("/v1/people", HandlePeople)
 
 	router.HandleFunc("/v1/objects", HandleObjects)
-	router.HandleFunc("/v1/object/{id}", HandleObject)
 	router.HandleFunc("/v1/object/{action}", HandleObject)
-	router.HandleFunc("/v1/object/{[0-9]}/{action}", HandleObject)
+	router.HandleFunc("/v1/object/{action}/{id}", HandleObject)
 
 	router.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/",
 		http.FileServer(http.Dir("./html/assets/"))))

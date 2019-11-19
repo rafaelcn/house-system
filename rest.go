@@ -19,35 +19,39 @@ func HandleUser(w http.ResponseWriter, r *http.Request) {
 
 	var response Response
 
-	if vars["id"] != "" {
-		row := db.Query(SelectUser, []interface{}{vars["id"]})
-		var user User
-
-		for row.Next() {
-			err := row.Scan(&user.ID, &user.Name, &user.Mail, &user.Phone,
-				&user.Birth,
-				&user.Type)
-
-			switch err {
-			case sql.ErrNoRows:
-				response.Status = StatusError
-
-				errorMessage := fmt.Sprintf("Database request error, "+
-					"notify the developer about %v.", err.Error())
-
-				e := Error{
-					Code:        ErrorDatabaseResponse,
-					Description: errorMessage,
-				}
-
-				response.Content = e
-			case nil:
-				response.Status = StatusOk
-				response.Content = user
-			}
-		}
-	} else if vars["action"] != "" {
+	if vars["action"] != "" {
 		switch vars["action"] {
+		case "fetch":
+			if vars["id"] == "" {
+				response = IncompleteRequest()
+			} else {
+				row := db.Query(SelectUser, []interface{}{vars["id"]})
+				var user User
+
+				for row.Next() {
+					err := row.Scan(&user.ID, &user.Name, &user.Mail, &user.Phone,
+						&user.Birth,
+						&user.Type)
+
+					switch err {
+					case sql.ErrNoRows:
+						response.Status = StatusError
+
+						errorMessage := fmt.Sprintf("Database request error, "+
+							"notify the developer about %v.", err.Error())
+
+						e := Error{
+							Code:        ErrorDatabaseResponse,
+							Description: errorMessage,
+						}
+
+						response.Content = e
+					case nil:
+						response.Status = StatusOk
+						response.Content = user
+					}
+				}
+			}
 		case "sign-up":
 			name := r.Form.Get("name")
 			email := r.Form.Get("email")
@@ -57,35 +61,27 @@ func HandleUser(w http.ResponseWriter, r *http.Request) {
 
 			db.Execute(AddUser, []interface{}{name, email, password, phone,
 				birth})
-
-			// Make sure the user will login
-			http.Redirect(w, r, "/login", http.StatusSeeOther)
 		case "update":
+			id := r.Form.Get("id")
 			name := r.Form.Get("name")
 			email := r.Form.Get("email")
 			password := r.Form.Get("password")
 			phone := r.Form.Get("phone")
 			birth := r.Form.Get("birth")
 
-			db.Execute(AddUser, []interface{}{name, email, password, phone,
-				birth})
+			db.Execute(UpdateUser, []interface{}{id, name, email, password,
+				phone, birth})
 		case "delete":
 			id := r.Form.Get("id")
 			db.Execute(RemoveUser, []interface{}{id})
 		case "invite":
 
+			response.Content = ""
 		default:
 		}
 	}
 
-	message, err := json.Marshal(response)
-
-	if err != nil {
-		Report500(&w,
-			fmt.Sprintf("[!] Error encoding data to json. Reason %v", err))
-	}
-
-	w.Write(message)
+	respond(&w, response)
 }
 
 // HandlePeople is a handle that accepts requests to manage a group of people
@@ -126,27 +122,59 @@ func HandlePeople(w http.ResponseWriter, r *http.Request) {
 			response.Content = users
 		}
 	}
-	message, err := json.Marshal(response)
 
-	if err != nil {
-		Report500(&w,
-			fmt.Sprintf("[!] Error encoding data to json. Reason %v", err))
-	}
-
-	w.Write(message)
+	respond(&w, response)
 }
 
-// HandleHardware
+// HandleObject ...
 func HandleObject(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	vars := mux.Vars(r)
 
 	db := PGSQLConnect()
 
-	if vars["id"] != "" {
+	var response Response
+	var err error
 
-	} else if vars["action"] != "" {
+	if vars["action"] != "" {
 		switch vars["action"] {
+		case "fetch":
+			if vars["id"] == "" {
+				response = IncompleteRequest()
+			} else {
+				id := vars["id"]
+
+				row := db.Query(SelectObject, []interface{}{id})
+				var object Object
+
+				for row.Next() {
+					err = row.Scan(&object.ID, &object.Name, &object.Status, &object.Type,
+						&object.House, &object.Intensity, &object.Volume, &object.Distance,
+						&object.Temperature)
+
+					if err != nil {
+						errorMessage := fmt.Sprintf("Database request error, "+
+							"notify the developer about %v.", err.Error())
+
+						e := Error{
+							Code:        ErrorDatabaseResponse,
+							Description: errorMessage,
+						}
+
+						response.Status = StatusError
+						response.Content = e
+					} else {
+						response.Status = StatusOk
+						response.Content = object
+					}
+				}
+			}
+		case "update":
+			if vars["id"] == "" {
+				response = IncompleteRequest()
+			} else {
+
+			}
 		case "add":
 			objectID := r.Form.Get("code")
 			objectName := r.Form.Get("name")
@@ -170,8 +198,9 @@ func HandleObject(w http.ResponseWriter, r *http.Request) {
 			objectID := r.Form.Get("code")
 
 			db.Execute(RemoveObject, []interface{}{objectID})
-		default:
 		}
+
+		respond(&w, response)
 	}
 }
 
@@ -213,14 +242,7 @@ func HandleObjects(w http.ResponseWriter, r *http.Request) {
 		response.Content = objects
 	}
 
-	message, err := json.Marshal(response)
-
-	if err != nil {
-		Report500(&w,
-			fmt.Sprintf("[!] Couldn't encode data in json. Reason %v", err))
-	} else {
-		w.Write(message)
-	}
+	respond(&w, response)
 }
 
 // HandleLogin ...
@@ -243,22 +265,10 @@ func HandleLogin(w http.ResponseWriter, r *http.Request) {
 	switch err {
 	case sql.ErrNoRows:
 		response.Content = "Email or password incorrect"
-
-		message, err := json.Marshal(response)
-
-		if err != nil {
-			Report500(&w,
-				fmt.Sprintf("[!] Couldn't encode data to json. Reason %v",
-					err))
-		} else {
-			http.Redirect(w, r, "/login", http.StatusSeeOther)
-			w.Write(message)
-		}
-		break
+		respond(&w, response)
 	case nil:
 		// TODO: Create an user session
 		http.Redirect(w, r, "/homepage", http.StatusSeeOther)
-		break
 	default:
 		log.Printf("[!] Unknown error: %v", err)
 	}
@@ -271,18 +281,29 @@ func HandleLogout(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
-// Report500 reports an Internal Server Error (HTTP_500) to the client
-func Report500(w *http.ResponseWriter, message string) {
-	log.Printf(message)
+// Responds the JSON to the caller
+func respond(w *http.ResponseWriter, response Response) {
+	message, err := json.Marshal(response)
 
-	(*w).WriteHeader(http.StatusInternalServerError)
-	(*w).Write([]byte("500 Internal Server Error"))
+	if err != nil {
+		Report500(w,
+			fmt.Sprintf("[!] Couldn't encode data in json. Reason %v", err))
+	} else {
+		(*w).Write(message)
+	}
 }
 
-// Report503 reports a Service Unavailable Error (HTTP_503) to the client
-func Report503(w *http.ResponseWriter, message string) {
-	log.Printf(message)
+// IncompleteRequest ...
+func IncompleteRequest() Response {
+	var response Response
 
-	(*w).WriteHeader(http.StatusServiceUnavailable)
-	(*w).Write([]byte("503 Service Unavailable"))
+	e := Error{
+		Code:        ErrorIncompleteRequest,
+		Description: "The given endpoint requires an id.",
+	}
+
+	response.Status = StatusError
+	response.Content = e
+
+	return response
 }
