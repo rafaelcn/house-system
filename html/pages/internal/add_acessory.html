@@ -5,7 +5,7 @@
             <i class="fa fa-10x fa-qrcode"></i>
         </div>
 
-        <form method="POST" action="">
+        <form method="POST" action="/v1/object/add">
             <div class="field">
                 <label for="">Nome do acessório</label>
                 <input name="name" type="text" class="input" placeholder="Iluminação sala" required>
@@ -45,7 +45,7 @@
         form.submit(e => {
             e.preventDefault()
             
-            
+            e.submit()
         })
     </script>
 {{ end }}
