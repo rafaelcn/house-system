@@ -35,7 +35,7 @@ const (
 	`
 
 	AddObject = `
-		INSERT INTO TB_OBJECT VALUES($1, $2, $3, $4);
+		INSERT INTO TB_OBJECT VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9);
 	`
 	RemoveObject = `
 		DELETE FROM TB_OBJECT WHERE OBJECT_ID = $1;
