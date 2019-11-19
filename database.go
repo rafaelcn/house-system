@@ -126,10 +126,6 @@ func (c *PostgreSQLConnection) Query(query string, arguments []interface{}) *sql
 	return result
 }
 
-func (c *PostgreSQLConnection) QueryRow(query string, arguments []interface{}) *sql.Row {
-	return c.db.QueryRow(query, arguments...)
-}
-
 // Execute queries the database for a given query and returns the result of the
 // execution.
 func (c *PostgreSQLConnection) Execute(query string, arguments []interface{}) sql.Result {
