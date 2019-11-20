@@ -3,14 +3,14 @@
 INSERT INTO TB_USER_TYPE VALUES(1, 'admin');
 INSERT INTO TB_USER_TYPE VALUES(2, 'user');
 
-INSERT INTO TB_USER VALUES(1, 'Rafael Campos Nunes',
+INSERT INTO TB_USER VALUES(default, 'Rafael Campos Nunes',
                            'rcamposnunes@outlook.com',
                            'different-password',
                            '45999215452',
                            '1996-07-15',
                            1);
 
-INSERT INTO TB_USER VALUES(2, 'Rodrigo Beloni',
+INSERT INTO TB_USER VALUES(default, 'Rodrigo Beloni',
                            'rodrigo@gmail.com',
                            'password',
                            '61992901458',
