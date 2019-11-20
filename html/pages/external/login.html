@@ -1,5 +1,22 @@
 {{ define "content" }}
-<section class="" style="height:90vh; display: flex; align-items: center; justify-content: center;">
+<style>
+    .bg-image {
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        width: 100% !important;
+        height: 100% !important;
+        background-image: url("/assets/img/elements/background.png");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        animation: background-animation-1 5s infinite;
+        z-index: -2;
+    }
+</style>
+
+<div class="bg-image"></div>
+
+<section class="is-vhcentered">
     <div class="column is-4-tablet is-4-widescreen">
         <div class="columns mt-3 is-centered">
             <div class="column is-11 has-text-centered">
@@ -10,25 +27,24 @@
         </div>
 
         <form method="POST" action="/v1/login">
-            <div class="columns is-centered">
-                <div class="column is-full-width">
-                    <input name="email" class="input" type="text" placeholder="Email" required>
-                </div>
-            </div>
-            <div class="columns is-centered">
-                <div class="column is-full-width">
-                    <input name="password" class="input" type="password" placeholder="Senha" required>
-                </div>
+            <div class="field">
+                <input name="email" class="input" type="text" placeholder="Email" required>
             </div>
 
-            <div class="columns">
-                <div class="column">
-                    <button class="button is-pulled-right is-primary animate">
-                        <b>Login</b>
-                    </button>
-                </div>
+            <div class="field">
+                <input name="password" class="input" type="password" placeholder="Senha" required>
+            </div>
+
+            <div class="field level-right">
+                <button class="button is-primary animate">
+                    <b>Login</b>
+                </button>
             </div>
         </form>
+
+        <div class="alert is-danger mt-5 d-hidden" id="notification">
+            Some text to make the notification bigger
+        </div>
     </div>
 </section>
 
@@ -45,8 +61,11 @@
         left.html("")
         right.html("")
 
+        var notification = $('#notification')
+
         $("form").submit(e => {
             e.preventDefault()
+            notification.addClass('d-hidden')
 
             var email = $('[name=email]').val()
             var password = $('[name=password]').val()
@@ -62,7 +81,8 @@
                     if (response.data.Content.Code != null) {
                         switch (response.data.Content.Code) {
                         case errorNotAuthorized:
-                            window.alert("Email ou senha incorretos")
+                            notification.text("Email ou senha incorretos.")
+                            notification.removeClass('d-hidden')
                         default:
                         }
                     } else {
@@ -72,7 +92,10 @@
             })
 
             request.catch(error => {
-                window.alert("Falha de login, tente novamente mais tarde")
+                notification.text("Falha de login, tente novamente mais tarde."
+                    + " A causa foi " + error)
+                notification.removeClass('d-hidden')
+
                 console.log(error)
             })
         })

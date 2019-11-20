@@ -1,4 +1,21 @@
 {{ define "content" }}
+<style>
+    .bg-image {
+        position: absolute;
+        top: 80%;
+        left: 2%;
+        width: 100% !important;
+        height: 100% !important;
+        background-image: url("/assets/img/elements/background.png");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        animation: background-animation-2 40s infinite;
+        z-index: -2;
+    }
+</style>
+    
+<div class="bg-image"></div>
+
 <div class="container is-fluid">
     <section class="section is-medium has-text-centered">
         <h1 class="title">Junte-se a sua nova casa</h1>    
