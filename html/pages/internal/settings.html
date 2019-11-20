@@ -46,87 +46,8 @@
                 
             </div-->
 
-            <div class="columns is-mobile h-overflow has-background-danger">
-                <div class="column is-3">
-                    <a href="#">
-                        <div class="card">
-                            <div class="card-image">
-                                <figure class="image">
-                                    <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png"
-                                        alt="Placeholder image">
-                                </figure>
-                            </div>
-                            <div class="card-content is-paddingless">
-                                <p class="mt-5 is-size-6">João Maurício Nunes Carneiro</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="column is-3">
-                    <a href="#">
-                        <div class="card">
-                            <div class="card-image">
-                                <figure class="image">
-                                    <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png"
-                                        alt="Placeholder image">
-                                </figure>
-                            </div>
-                            <div class="card-content is-paddingless mt-5">
-                                <p class="is-size-6">João Maurício Nunes Carneiro</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="column is-3">
-                    <a href="#">
-                        <div class="card">
-                            <div class="card-image">
-                                <figure class="image">
-                                    <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png"
-                                        alt="Placeholder image">
-                                </figure>
-                            </div>
-                            <div class="card-content is-paddingless">
-                                <p class="mt-5 is-size-6">João Maurício Nunes Carneiro</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="column is-3">
-                    <a href="#">
-                        <div class="card">
-                            <div class="card-image">
-                                <figure class="image">
-                                    <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png"
-                                        alt="Placeholder image">
-                                </figure>
-                            </div>
-                            <div class="card-content is-paddingless">
-                                <p class="mt-5 is-size-6">Fulano da Silva Santos</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="column is-3">
-                    <a href="/invite">
-                        <div class="card">
-                            <div class="card-image">
-                                <figure class="image">
-                                    <i class="fa fa-5x fa-plus-circle "></i>
-                                </figure>
-
-
-                            </div>
-                            <div class="card-content is-paddingless">
-                                <p class="mt-5 is-size-6">Convidar pessoas</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
+            <div id="people" class="columns is-mobile h-overflow">
+                
             </div>
         </div>
 
@@ -146,5 +67,60 @@
 {{ end }}
 
 {{ define "script" }}
+
+<script>
+        function fillPeople() {
+            let data = axios.get('/v1/people')
+            
+            data.then(response => {                
+                response.data.Content.forEach(element => {
+                    console.log(element)
+
+                    $('#people').append(
+                    '<div class="column is-3">'
+                        +'<a href="#">'
+                            +'<div class="card">'
+                                +'<div class="card-image">'
+                                    +'<figure class="image">'
+                                        +'<img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png" alt="Placeholder image">'
+                                    +'</figure>'
+                                +'</div>'
+                                +'<div class="card-content is-paddingless">'
+                                    +'<p class="mt-5 is-size-6">' + element.Name + '</p>'
+                                +'</div>'
+                            +'</div>'
+                        +'</a>'
+                    +'</div>'
+                    )
+                })
+
+                $('#people').append(
+                    '<div class="column is-3">'
+                        +'<a href="/invite">'
+                            +'<div class="card">'
+                                +'<div class="card-image">'
+                                    +'<figure class="image">'
+                                        +'<i class="fa fa-5x fa-plus-circle "></i>'
+                                    +'</figure>'
+                                +'</div>'
+                                +'<div class="card-content is-paddingless">'
+                                    +'<p class="mt-5 is-size-6">Convidar pessoas</p>'
+                                +'</div>'
+                            +'</div>'
+                        +'</a>'
+                    +'</div>'
+                )
+
+            });
+            
+            data.catch(error => {
+                window.alert('Ocorreu um erro ao carregar as informaÃ§Ãµes. Entre' + 
+                    ' em contato com o desenvolvedor.')
+                console.log(error)
+            })
+        } 
+
+        fillPeople();
+    </script>
 
 {{ end }}
