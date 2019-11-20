@@ -30,7 +30,8 @@ func Serve(address string, port string) {
 	router.HandleFunc("/acessory/{serial}", HandleAcessoryPage)
 	router.HandleFunc("/invite", HandleInvitePage)
 	router.HandleFunc("/add-acessory", HandleAddAcessoryPage)
-	router.HandleFunc("/user-settings", HandleUserSettingsPage)
+	router.HandleFunc("/admin-settings", HandleAdminSettingsPage)
+	router.HandleFunc("/user-settings/{id}", HandleUserSettingsPage)
 
 	// REST API
 	router.HandleFunc("/v1/login", HandleLogin)
@@ -156,7 +157,21 @@ func HandleSettingsPage(w http.ResponseWriter, r *http.Request) {
 	t.Execute(w, d)
 }
 
-// HandleSettingsPage ...
+// HandleAdminSettingsPage ...
+func HandleAdminSettingsPage(w http.ResponseWriter, r *http.Request) {
+	t := template.Must(template.ParseFiles(
+		"html/templates/internal.html",
+		"html/pages/internal/admin_settings.html",
+	))
+
+	d := PageData{
+		Title: "Configurações de administrador",
+	}
+
+	t.Execute(w, d)
+}
+
+// HandleUserSettingsPage ...
 func HandleUserSettingsPage(w http.ResponseWriter, r *http.Request) {
 	t := template.Must(template.ParseFiles(
 		"html/templates/internal.html",
