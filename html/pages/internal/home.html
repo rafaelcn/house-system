@@ -27,32 +27,23 @@
     let data = axios.get('/v1/objects')
 
     data.then(response => {
-        var bulb = '<i class="fa fa-8x fa-lightbulb"></i>'
-        var music = '<i class="fa fa-8x fa-music"></i>'
-        var air = '<i class="fa fa-8x fa-temperature-low"></i>'
-        var sensor = '<i class="fa fa-8x fa-wave-square"></i>'
+        var acessory
 
         if (response.data.Content != null) {
             response.data.Content.forEach(elem => {
-                var icon
-                var message
 
                 switch (elem.Type) {
                 case 1:
-                    icon = bulb
-                    message = "Intensidade"
+                    acessory = Acessory.light
                     break
                 case 2:
-                    icon = music
-                    message = "Volume"
+                    acessory = Acessory.sound
                     break
                 case 3:
-                    icon = sensor
-                    message = "Distância"
+                    acessory = Acessory.sensor
                     break
                 case 4:
-                    icon = air
-                    message = "Temperatura"
+                    acessory = Acessory.air
                     break
                 }
 
@@ -62,11 +53,11 @@
                             elem.Name +
                         '</div>' +
                         '<div class="card-content is-warning" id="object-icon">' +
-                            icon +
+                            acessory.icon +
                         '</div>' +
                     '</a>' +
                     '<div class="has-text-centered p-3">' +
-                        '<h6 class="has-text-grey">'+ message +'</h6>' +
+                        '<h6 class="has-text-grey">'+ acessory.property +'</h6>' +
                         '<input type="range" min="0" max="100" value="50" class="slider is-fullwidth" step="1">' +
                     '</div></div></div>'
 
@@ -74,7 +65,7 @@
             })
 
         } else {
-            var message = '<div class="alert alert-info p-5">Nenhum objeto '+ 
+            var message = '<div class="alert is-info p-5">Nenhum objeto '+ 
                 'encontrado. Adicione alguns e comece a controlar a sua residência.</div>'
             $("#notification").append(message)
         }
