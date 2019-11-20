@@ -3,6 +3,12 @@
     <div class="columns is-mobile is-multiline" id="acessories">
     </div>
 
+    <div class="columns is-mobile">
+        <div class="column is-centered" id="notification">
+
+        </div>
+    </div>
+
     <div class="columns is-centered">
         <div class="column is-4">
             <a href="/add-acessory" class="button is-primary is-uppercase is-fullwidth">
@@ -68,7 +74,9 @@
             })
 
         } else {
-            message = '<div class="alert">Nenhum objeto encontrado. Adicione!</div>'
+            var message = '<div class="alert alert-info p-5">Nenhum objeto '+ 
+                'encontrado. Adicione alguns e comece a controlar a sua residência.</div>'
+            $("#notification").append(message)
         }
     })
     

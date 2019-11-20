@@ -69,23 +69,23 @@ button {
 }
 
 .p-1 {
-    padding: 5px;
+    padding: 5px !important;
 }
 
 .p-2 {
-    padding: 5px;
+    padding: 5px !important;
 }
 
 .p-3 {
-    padding: 10px;
+    padding: 10px !important;
 }
 
 .p-4 {
-    padding: 15px;
+    padding: 15px !important;
 }
 
 .p-5 {
-    padding: 25px;
+    padding: 25px !important;
 }
 
 .pb-1 { 
@@ -106,6 +106,17 @@ button {
 
 .pb-5 {
     padding-bottom: 25px;
+}
+
+.alert {
+    padding: 10px;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.alert-info {
+    color: white;
+    background: rgb(18, 153, 255) !important;
 }
 
 .is-vhcentered {
@@ -143,11 +154,11 @@ input:active, input:focus, .select:active > *, .select:focus > * {
 }
 
 .button.is-info {
-    background: rgb(81, 185, 163) !important;
+    background: rgb(18, 153, 255) !important;
 }
 
 .button.button.is-info:hover {
-    background: rgb(64, 144, 127) !important;
+    background: rgb(18, 153, 255) !important;
 }
 
 .button.is-warning {
