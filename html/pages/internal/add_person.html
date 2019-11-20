@@ -5,7 +5,7 @@
             <i class="fa fa-8x fa-user-plus"></i>
         </div>
 
-        <form method="POST" action="/v1/">
+        <form method="POST" action="/v1/user/invite">
             <div class="field">
                 <label for="">Email do usuário</label>
                 <input name="name" type="text" class="input" placeholder="rodrigo@gmail.com" required>
@@ -28,7 +28,7 @@
         form.submit(e => {
             e.preventDefault()
             
-            
+            window.location.replace("/homepage")
         })
     </script>
 {{ end }}
