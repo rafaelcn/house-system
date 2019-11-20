@@ -1,10 +1,51 @@
 {{ define "content" }}
+<section class="is-vhcentered">
+    <div id="acessory" class="column is-3-widescreen has-text-centered">
+        <div id="acessory-name" class="title">
 
+        </div>
+        <div id="acessory-icon" class="mt-3">
+
+        </div>
+        <div id="controls" class="level mt-3">
+            <div class="level-left">
+                <div class="field">
+                    <input id="status" type="checkbox" class="switch is-outlined is-warning" checked="checked">
+                    <label for="status"></label>
+                </div>
+            </div>
+            <div class="level-right">
+                <input class="slider is-fullwidth" step="1" min="0" max="100" value="50" type="range">
+            </div>
+        </div>
+        <div id="actions" class="level-right mt-5">
+            <button class="button is-danger" id="acessory-delete">
+                Excluir
+            </button>
+        </div>
+    </div>
+</section>
 {{ end }}
 
 {{ define "script" }}
     <script>
-        //url = document.URL.split("/")
-        
+        var url = document.URL.split("/")
+        var id = url[url.length-1]
+
+        var request = axios.get('/v1/object/fetch/' + id)
+
+        request.then(response => {
+            var content = response.data.Content
+            if (content != null) {
+                $("#acessory-name").text(content.Name)
+                $("#acessory-icon").html(Acessory.icon(content.Type).icon)
+
+                var html = ''
+            }
+        })
+
+        $("#acessory-delete").click(e => {
+
+        })
     </script>
 {{ end }}
