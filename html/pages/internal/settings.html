@@ -2,6 +2,8 @@
 <section class="section">
     <div class="columns is-centered">
         <div class="column">
+            <h1 class="title">CONFIGURE SUA CASA</h1>
+
             <form method="POST" action="">
                 <div class="field">
                     <div class="label">
@@ -30,19 +32,11 @@
 
                 
             <span class="label mt-5">
-                PESSOA
+                PESSOAS
             </span>
             
-            <div>
-                <a href="#">
-                    <figure>
-                    <img src="https://bulma.io/images/placeholders/128x128.png">
-                    <caption>...</caption>
-                    </figure>
-                </a>
-                <a href="#"><img src="https://bulma.io/images/placeholders/128x128.png"></a>
-                <a href="#"><img src="https://bulma.io/images/placeholders/128x128.png"></a>
-                <a href="/invite" ><i class="fa fa-5x fa-plus-circle"></i></a>
+            <div id="people" class="columns" style="overflow-x: auto">
+                
             </div>
             
         </div>
@@ -63,5 +57,51 @@
 {{ end }}
 
 {{ define "script" }}
+    <script>
+        var request = axios.get('/v1/people')
+            
+        request.then(response => {                
+            if (response.data.Content != null) {
+                response.data.Content.forEach(person => {
+                    $('#people').append(
+                    '<div class="column is-3 has-text-centered">'
+                        +'<a href="/user-settings/'+ person.ID +'">'
+                            +'<div class="card p-5">'
+                                +'<div class="card-image">'
+                                    +'<figure class="image">'
+                                        +'<i class="fa fa-5x fa-user "></i>'
+                                    +'</figure>'
+                                +'</div>'
+                                +'<div class="card-content is-paddingless">'
+                                    +'<p class="mt-5 is-size-6">' + person.Name + '</p>'
+                                +'</div>'
+                            +'</div>'
+                        +'</a>'
+                    +'</div>'
+                    )
+                })
+            } else {
 
+            }
+        })
+
+        request.finally(() => {
+            $('#people').append(
+                '<div class="column is-3 has-text-centered">'
+                    +'<a href="/invite">'
+                        +'<div class="card p-5">'
+                            +'<div class="card-image">'
+                                +'<figure class="image">'
+                                    +'<i class="fa fa-5x fa-plus-circle "></i>'
+                                +'</figure>'
+                            +'</div>'
+                            +'<div class="card-content is-paddingless">'
+                                +'<p class="mt-5 is-size-6">Convidar pessoas</p>'
+                            +'</div>'
+                        +'</div>'
+                    +'</a>'
+                +'</div>'
+            )
+        })
+    </script>
 {{ end }}
