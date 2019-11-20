@@ -27,7 +27,7 @@ func Serve(address string, port string) {
 	// Internal pages
 	router.HandleFunc("/homepage", HandleHomePage)
 	router.HandleFunc("/settings", HandleSettingsPage)
-	router.HandleFunc("/acessory", HandleAcessoryPage)
+	router.HandleFunc("/acessory/{serial}", HandleAcessoryPage)
 	router.HandleFunc("/invite", HandleInvitePage)
 	router.HandleFunc("/add-acessory", HandleAddAcessoryPage)
 	router.HandleFunc("/user-settings", HandleUserSettingsPage)
@@ -192,7 +192,7 @@ func HandleAcessoryPage(w http.ResponseWriter, r *http.Request) {
 	))
 
 	d := PageData{
-		Title: "Acessórios",
+		Title: "Acessório",
 	}
 
 	t.Execute(w, d)

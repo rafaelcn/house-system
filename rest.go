@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 
 	"github.com/gorilla/mux"
 )
@@ -59,8 +60,28 @@ func HandleUser(w http.ResponseWriter, r *http.Request) {
 			phone := r.Form.Get("phone")
 			birth := r.Form.Get("birth")
 
-			db.Execute(AddUser, []interface{}{name, email, password, phone,
-				birth})
+			if name == "" || email == "" || password == "" || phone == "" || birth == "" {
+				response = IncompleteRequest()
+			} else {
+				// Format phone
+				phone = strings.Replace(phone, "(", "", 1)
+				phone = strings.Replace(phone, ")", "", 1)
+				phone = strings.Replace(phone, "-", "", 1)
+				phone = strings.Replace(phone, " ", "", 1)
+
+				// Format birth date
+				date := strings.Split(birth, "/")
+				year := date[2]
+				date[2] = date[0]
+				date[0] = year
+				birth = strings.Join(date, "-")
+
+				db.Execute(AddUser, []interface{}{name, email, password, phone,
+					birth})
+
+				response.Status = StatusOk
+				response.Content = "Você foi registrado com sucesso."
+			}
 		case "update":
 			id := r.Form.Get("id")
 			name := r.Form.Get("name")
@@ -186,9 +207,9 @@ func HandleObject(w http.ResponseWriter, r *http.Request) {
 				objectNType = 1
 			case "sound":
 				objectNType = 2
-			case "air-conditioner":
-				objectNType = 3
 			case "sensor":
+				objectNType = 3
+			case "air-conditioner":
 				objectNType = 4
 			}
 
@@ -258,20 +279,24 @@ func HandleLogin(w http.ResponseWriter, r *http.Request) {
 
 	var user User
 	var response Response = Response{Status: StatusOk}
+	var e Error = Error{Code: ErrorNotAuthorized}
 
-	err := row.Scan(&user.ID, &user.Name, &user.Mail, &user.Password,
-		&user.Phone, &user.Birth, &user.Type)
+	err := row.Scan(&user.ID, &user.Name, &user.Mail, &user.Username,
+		&user.Password, &user.Phone, &user.Birth, &user.Type)
 
 	switch err {
 	case sql.ErrNoRows:
-		response.Content = "Email or password incorrect"
-		respond(&w, response)
+		e.Description = "Email or password incorrect"
+		response.Content = e
+		
 	case nil:
 		// TODO: Create an user session
-		http.Redirect(w, r, "/homepage", http.StatusSeeOther)
+		response.Content = "authorized"
 	default:
 		log.Printf("[!] Unknown error: %v", err)
 	}
+
+	respond(&w, response)
 }
 
 // HandleLogout ...
@@ -299,7 +324,7 @@ func IncompleteRequest() Response {
 
 	e := Error{
 		Code:        ErrorIncompleteRequest,
-		Description: "The given endpoint requires an id.",
+		Description: "The given endpoint requires data as specified.",
 	}
 
 	response.Status = StatusError
