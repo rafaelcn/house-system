@@ -1,20 +1,35 @@
 {{ define "content" }}
 <style>
-    .bg-image {
+    .bg-1 {
         position: absolute;
-        top: 20%;
-        left: 20%;
+        top: -55%;
+        left: 10%;
         width: 100% !important;
         height: 100% !important;
-        background-image: url("/assets/img/elements/background.png");
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        animation: background-animation-1 5s infinite;
+        opacity: .6;
+        animation: skew-backward 35s linear infinite;
+        z-index: -2;
+    }
+
+    .bg-2 {
+        position: absolute;
+        top: -55%;
+        left: -40%;
+        width: 100% !important;
+        height: 100% !important;
+        opacity: .6;
+        animation: skew-forward 35s linear infinite;
         z-index: -2;
     }
 </style>
 
-<div class="bg-image"></div>
+<div class="bg-1">
+    <img src="/assets/img/elements/background.png" alt="" srcset="">
+</div>
+
+<div class="bg-2">
+        <img src="/assets/img/elements/background.png" alt="" srcset="">
+    </div>
 
 <section class="is-vhcentered">
     <div class="column is-4-tablet is-4-widescreen">
