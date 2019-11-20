@@ -114,10 +114,32 @@ button {
     text-align: center;
 }
 
-.alert-info {
+.alert.is-info {
     color: white;
     background: rgb(18, 153, 255) !important;
 }
+
+.alert.is-warning {
+    background: rgb(252, 190, 32) !important;
+}
+
+.alert.is-danger {
+    color: white;
+    background: rgb(201, 42, 42) !important;
+}
+
+.alert.is-black {
+    color: white;
+    background: rgb(60, 60, 60) !important;
+}
+
+.d-none {
+    display: none;
+}
+
+.d-hidden {
+    visibility: hidden;
+} 
 
 .is-vhcentered {
     height:90vh; 
