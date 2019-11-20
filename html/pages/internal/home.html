@@ -41,20 +41,21 @@
                     message = "Volume"
                     break
                 case 3:
+                    icon = sensor
+                    message = "Distância"
+                    break
+                case 4:
                     icon = air
                     message = "Temperatura"
                     break
-                case 4:
-                    icon = sensor
-                    message = "Distância"
                 }
 
                 var obj = '<div class="column is-2"> <div class="card animate">' +
-                    '<a href="/object/'+ elem.ID +'">' +
-                        '<span class="p-3 has-text-grey" id="object-name">' +
+                    '<a href="/acessory/'+ elem.ID +'" class="has-text-centered">' +
+                        '<div class="p-3 has-text-grey" id="object-name">' +
                             elem.Name +
-                        '</span>' +
-                        '<div class="card-content has-text-centered is-warning" id="object-icon">' +
+                        '</div>' +
+                        '<div class="card-content is-warning" id="object-icon">' +
                             icon +
                         '</div>' +
                     '</a>' +
@@ -67,7 +68,7 @@
             })
 
         } else {
-            window.alert("Nenhum resultado encontrado")
+            message = '<div class="alert">Nenhum objeto encontrado. Adicione!</div>'
         }
     })
     

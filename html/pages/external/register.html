@@ -8,6 +8,13 @@
         <div class="column is-two-thirds">
             <form method="POST" action="/v1/user/sign-up">
                 <div class="field">
+                    <label class="label">Nome completo</label>
+                    <div class="control">
+                        <input name="name" class="input" type="text" placeholder="Rafael Campos Nunes">
+                    </div>
+                </div>
+
+                <div class="field">
                     <label class="label">Email</label>
                     <div class="control">
                         <input name="email" class="input" type="email" placeholder="rafaelnunes@outlook.com">
@@ -26,14 +33,14 @@
                         <div class="field">
                             <label class="label">Data de Nascimento</label>
                             <p class="control is-expanded">
-                                <input name="birth" class="input" type="text" placeholder="15/07/1996">
+                                <input name="birth" class="input" type="text" data-mask="00/00/0000" placeholder="15/07/1996">
                             </p>
                         </div>
 
                         <div class="field">
                             <label class="label">Telefone</label>
                             <p class="control is-expanded">
-                                <input name="phone" class="input" type="tel" placeholder="(45) 99921-1235">
+                                <input name="phone" class="input" data-mask="(00) 00000-0000" type="tel" placeholder="(45) 99921-1235">
                             </p>
                         </div>
                     </div>
@@ -63,5 +70,24 @@
 
         left.html("")
         right.html("")
+
+        $("form").submit(e => {
+            e.preventDefault()
+
+            var params = new URLSearchParams()
+            params.append('name', $('[name=name]').val())
+            params.append('email', $('[name=email]').val())
+            params.append('password', $('[name=password]').val())
+            params.append('birth', $('[name=birth]').val())
+            params.append('phone', $('[name=phone]').val())
+
+            var request = axios.post('/v1/user/sign-up', params)
+
+            request.then(response => {
+                window.alert(response.data.Content)
+                window.location.replace('/login')
+            })
+
+        })
     </script>
 {{ end }}

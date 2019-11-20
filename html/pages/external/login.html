@@ -38,10 +38,43 @@
     <script>
         'use strict'
 
+
         let left = $(".navbar-start")
         let right = $(".navbar-end")
 
         left.html("")
         right.html("")
+
+        $("form").submit(e => {
+            e.preventDefault()
+
+            var email = $('[name=email]').val()
+            var password = $('[name=password]').val()
+
+            const params = new URLSearchParams()
+            params.append('email', email)
+            params.append('password', password)
+
+            var request = axios.post('/v1/login', params)
+
+            request.then(response => {
+                if (response.data.Content != null) {
+                    if (response.data.Content.Code != null) {
+                        switch (response.data.Content.Code) {
+                        case errorNotAuthorized:
+                            window.alert("Email ou senha incorretos")
+                        default:
+                        }
+                    } else {
+                        window.location.replace("/homepage")
+                    }
+                }
+            })
+
+            request.catch(error => {
+                window.alert("Falha de login, tente novamente mais tarde")
+                console.log(error)
+            })
+        })
     </script>
 {{ end }}

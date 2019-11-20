@@ -6,20 +6,20 @@
             <figure class="image is-128x128">
                 <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
             </figure>
-            <h5 class=" is-size-6 has-text-grey" id="user-name">
-                ...
+            <h5 class=" is-size-6 has-text-grey" id="name">
+                
             </h5>
         </div>
 
-        <form method="POST" action="/user-settings" class="">
+        <form method="POST" action="/user-settings" class="mt-5">
             <div class="field is-full-width">
                 <label for="" class="label">Email</label>
-                <input class="input" name="username" type="text" placeholder="seu-email@provedor.com" required>
+                <input class="input" name="email" type="text" placeholder="seu-email@provedor.com" required>
             </div>
                 
             <div class="field is-full-width">
                 <label for="" class="label">Senha</label>
-                <input class="input" name="password" type="password" placeholder="••••••••••••••••••••" required>
+                <input class="input" name="password" type="password" placeholder="" required>
             </div>
 
             <div class="field is-horizontal">
@@ -27,14 +27,14 @@
                     <div class="field">
                         <label class="label">Data de Nascimento</label>
                         <p class="control is-expanded">
-                            <input name="birth" class="input" type="text" placeholder="15/07/1996">
+                            <input name="birth" class="input" data-mask="00/00/0000" type="text" placeholder="15/07/1996" required>
                         </p>
                     </div>
 
                     <div class="field">
                         <label class="label">Telefone</label>
                         <p class="control is-expanded">
-                            <input name="phone" class="input" type="tel" placeholder="(45) 99921-1235">
+                            <input name="phone" class="input" data-mask="(00) 00000-0000" type="tel" placeholder="(45) 99921-1235" required>
                         </p>
                     </div>
                 </div>
@@ -54,9 +54,36 @@
 {{ end }}
 
 {{ define "script" }}
-
     <script>
-        
-    </script>
+        function fill(id) {
+            let data = axios.get('/v1/user/fetch/' + id)
+            
+            data.then(response => {
+                var name = response.data.Content.Name
+                var mail = response.data.Content.Mail
+                var phone = response.data.Content.Phone
+                var birth = response.data.Content.Birth
 
+                name = name.trim();   
+
+                birth = birth.split("T")[0]
+                birth = birth.split("-").reverse().join("/")
+
+                $('#name').text(name)
+                $('[name=name]').val(name)
+                $('[name=email]').val(mail)
+                $('[name=birth]').val(birth)
+                $('[name=phone]').val($('[name=phone]').masked(phone))
+
+            })
+            
+            data.catch(error => {
+                window.alert('Ocorreu um erro ao carregar as informações. Entre' + 
+                    ' em contato com o desenvolvedor.')
+                console.log(error)
+            })
+        } 
+
+        fill(1)
+    </script>
 {{ end }}

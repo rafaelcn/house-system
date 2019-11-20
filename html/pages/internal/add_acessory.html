@@ -40,10 +40,25 @@
 
 {{ define "script" }}
     <script>
-        let form = $("form")
-    
-        form.submit(e => {
-            
+        $("form").submit(e => {
+            e.preventDefault()
+
+            var params = new URLSearchParams()
+
+            params.append('name', $("[name=name]").val())
+            params.append('code', $("[name=code]").val())
+            params.append('type', $("[name=type]").val())
+
+            var request = axios.post('/v1/object/add', params)
+
+            request.then(response => {
+                window.location.replace('/homepage')                
+            }) 
+
+            request.catch(erorr => {
+                window.alert("Algum erro ocorreu ao inserir o objeto")
+            })
+
         })
     </script>
 {{ end }}
