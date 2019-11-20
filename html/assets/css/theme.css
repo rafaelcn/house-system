@@ -211,3 +211,16 @@ input:active, input:focus, .select:active > *, .select:focus > * {
     margin-left: 2px !important;
     margin-right: 2px !important;
 }
+
+.h-overflow {
+    overflow-x: auto;
+}
+
+.card-image {
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+}
+
+.card-content {
+    text-align: center;
+}
