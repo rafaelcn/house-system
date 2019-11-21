@@ -118,9 +118,19 @@ button {
     text-align: center;
 }
 
+.alert.is-light {
+    color: black;
+    background: rgb(230, 230, 230) !important;
+}
+
 .alert.is-info {
     color: white;
     background: rgb(18, 153, 255) !important;
+}
+
+.alert.is-success {
+    color: white;
+    background: rgb(81, 185, 163) !important;
 }
 
 .alert.is-warning {
