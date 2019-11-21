@@ -29,15 +29,15 @@ button {
 }
 
 .mt-3 {
-    margin-top: 10px;
-}
-
-.mt-4 {
     margin-top: 15px;
 }
 
-.mt-5 {
+.mt-4 {
     margin-top: 25px;
+}
+
+.mt-5 {
+    margin-top: 40px;
 }
 
 .mb-1 {
@@ -106,6 +106,10 @@ button {
 
 .pb-5 {
     padding-bottom: 25px;
+}
+
+.o-5 {
+    opacity: .5;
 }
 
 .alert {
