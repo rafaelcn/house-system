@@ -26,6 +26,7 @@ func Serve(address string, port string) {
 
 	// Internal pages
 	router.HandleFunc("/homepage", HandleHomePage)
+	router.HandleFunc("/invite", HandleInvitePage)
 	router.HandleFunc("/invitations", HandleInvitationsPage)
 	router.HandleFunc("/settings", HandleSettingsPage)
 	router.HandleFunc("/profile", HandleProfilePage)
