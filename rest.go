@@ -95,9 +95,6 @@ func HandleUser(w http.ResponseWriter, r *http.Request) {
 		case "delete":
 			id := r.Form.Get("id")
 			db.Execute(RemoveUser, []interface{}{id})
-		case "invite":
-
-			response.Content = ""
 		default:
 		}
 	}
@@ -191,11 +188,40 @@ func HandleObject(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 		case "update":
-			if vars["id"] == "" {
+			objectID := r.Form.Get("code")
+			objectName := r.Form.Get("name")
+			objectStatus := r.Form.Get("status")
+			objectType := r.Form.Get("type")
+			objectNType := -1
+
+			switch objectType {
+			case "light":
+				objectNType = 1
+			case "sound":
+				objectNType = 2
+			case "sensor":
+				objectNType = 3
+			case "air-conditioner":
+				objectNType = 4
+			}
+
+			_ = db.Execute(UpdateObject, []interface{}{objectName, objectStatus,
+				objectNType, objectID})
+
+			if objectID == "" {
 				response = IncompleteRequest()
 			} else {
 
 			}
+		case "delete":
+			id := r.Form.Get("code")
+
+			if id == "" {
+				response = IncompleteRequest()
+			} else {
+				_ = db.Execute(RemoveObject, []interface{}{id})
+			}
+			
 		case "add":
 			objectID := r.Form.Get("code")
 			objectName := r.Form.Get("name")
@@ -215,10 +241,8 @@ func HandleObject(w http.ResponseWriter, r *http.Request) {
 
 			_ = db.Execute(AddObject, []interface{}{objectID,
 				objectName, false, objectNType, 1, 0.0, 0.0, 0.0, 0.0})
-		case "delete":
-			objectID := r.Form.Get("code")
 
-			db.Execute(RemoveObject, []interface{}{objectID})
+			response.Status = StatusOk
 		}
 
 		respond(&w, response)
@@ -301,7 +325,23 @@ func HandleLogin(w http.ResponseWriter, r *http.Request) {
 
 // HandleInvite ...
 func HandleInvite(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	vars := mux.Vars(r)
 
+	db := PGSQLConnect()
+
+	var response Response
+
+	switch vars["action"] {
+	case "new":
+		email := r.Form.Get("email")
+		db.Execute(InviteNew, []interface{}{email})
+
+		response.Status = StatusOk
+	case "fetch":
+	}
+
+	respond(&w, response)
 }
 
 // HandleLogout ...
