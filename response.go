@@ -19,6 +19,8 @@ const (
 
 	ErrorIncompleteRequest int = 0x00F1
 	ErrorNotFullfilledRequest int = 0x00F2
-	ErrorDatabaseResponse int = 0x00F3
 	ErrorNotAuthorized int = 0x00F4
+
+	ErrorDatabaseResponse int = 0x0DF0
+	ErrorDatabaseDupKey int = 0x0DF1
 )
