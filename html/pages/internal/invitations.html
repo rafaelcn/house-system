@@ -1,0 +1,23 @@
+{{ define "content" }}
+<section class="container is-fluid">
+    <h1 class="title">
+        Visualize aqui seus convites
+        <i class="far fa-laugh-wink fa-fw"></i>
+    </h1>
+
+    <div class="alert" id="notification">
+
+    </div>
+
+    <div class="column has-text-centered">
+
+    </div>
+</section>
+{{ end }}
+
+{{ define "script" }}
+    <script>
+        $("#notification").text("Opa, parece que não há nenhum convite por aqui.")
+        $("#notification").addClass("is-info")
+    </script>
+{{ end }}
