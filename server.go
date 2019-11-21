@@ -28,10 +28,9 @@ func Serve(address string, port string) {
 	router.HandleFunc("/homepage", HandleHomePage)
 	router.HandleFunc("/invitations", HandleInvitationsPage)
 	router.HandleFunc("/settings", HandleSettingsPage)
-	router.HandleFunc("/acessory/{serial}", HandleAcessoryPage)
-	router.HandleFunc("/invite", HandleInvitePage)
+	router.HandleFunc("/profile", HandleProfilePage)
 	router.HandleFunc("/add-acessory", HandleAddAcessoryPage)
-	router.HandleFunc("/admin-settings", HandleAdminSettingsPage)
+	router.HandleFunc("/acessory/{serial}", HandleAcessoryPage)
 	router.HandleFunc("/user-settings/{id}", HandleUserSettingsPage)
 
 	// REST API
@@ -161,10 +160,10 @@ func HandleSettingsPage(w http.ResponseWriter, r *http.Request) {
 }
 
 // HandleAdminSettingsPage ...
-func HandleAdminSettingsPage(w http.ResponseWriter, r *http.Request) {
+func HandleProfilePage(w http.ResponseWriter, r *http.Request) {
 	t := template.Must(template.ParseFiles(
 		"html/templates/internal.html",
-		"html/pages/internal/admin_settings.html",
+		"html/pages/internal/profile.html",
 	))
 
 	d := PageData{
