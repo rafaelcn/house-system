@@ -8,15 +8,19 @@
         <form method="POST" action="/v1/user/invite">
             <div class="field">
                 <label for="">Email do usuário</label>
-                <input name="name" type="text" class="input" placeholder="rodrigo@gmail.com" required>
+                <input name="email" type="text" class="input" placeholder="rodrigo@gmail.com" required>
             </div>
 
-            <div class="field is-pulled-right mt-3">
+            <div class="field level-right mt-3">
                 <button class="button is-primary animate">
                     Convidar pessoa
                 </button>
             </div>
         </form>
+
+        <div id="notification" class="alert mt-5 d-hidden">
+
+        </div>
     </div>
 </section>
 {{ end }}
@@ -27,8 +31,26 @@
     
         form.submit(e => {
             e.preventDefault()
-            
-            window.location.replace("/homepage")
+
+            $("#notification").addClass('d-hidden')
+            $("#notification").removeClass('is-success', 'is-danger')
+
+            var email = $("[name=email]").val()
+
+            var request = axios.get('/v1/invite/new', {params: {"email": email}})
+
+            request.then(response => {
+                if (response.data.Status == 0) {
+                    $("[name=email]").val('')
+
+                    var message = 'O convite para '+ email + 
+                        ' foi enviado. Mais alguém?'
+
+                    $("#notification").addClass('is-success')
+                    $("#notification").html(message)
+                    $("#notification").removeClass('d-hidden')
+                }
+            })
         })
     </script>
 {{ end }}
