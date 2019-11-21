@@ -85,23 +85,21 @@
             }
         })
 
-        request.finally(() => {
-            $('#people').append(
-                '<div class="column is-3 has-text-centered">'
-                    +'<a href="/invite">'
-                        +'<div class="card p-5">'
-                            +'<div class="card-image">'
-                                +'<figure class="image">'
-                                    +'<i class="fa fa-5x fa-plus-circle "></i>'
-                                +'</figure>'
-                            +'</div>'
-                            +'<div class="card-content is-paddingless">'
-                                +'<p class="mt-5 is-size-6">Convidar pessoas</p>'
-                            +'</div>'
+        $('#people').append(
+            '<div class="column is-3 has-text-centered">'
+                +'<a href="/invite">'
+                    +'<div class="card p-5">'
+                        +'<div class="card-image">'
+                            +'<figure class="image">'
+                                +'<i class="fa fa-5x fa-plus-circle "></i>'
+                            +'</figure>'
                         +'</div>'
-                    +'</a>'
-                +'</div>'
-            )
-        })
+                        +'<div class="card-content is-paddingless">'
+                            +'<p class="mt-5 is-size-6">Convidar pessoas</p>'
+                        +'</div>'
+                    +'</div>'
+                +'</a>'
+            +'</div>'
+        )
     </script>
 {{ end }}
