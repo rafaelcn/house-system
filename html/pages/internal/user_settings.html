@@ -1,5 +1,11 @@
 {{ define "content" }}
 
+<style>
+    .card {
+        min-height: 160px !important;
+    }
+</style>
+
 <section class="is-vhcentered">
     <div class="column is-centered is-4-widescreen">
         <div class="has-text-centered" style="display: flex; align-items: center; flex-direction: column">
@@ -15,11 +21,6 @@
             <div class="field is-full-width">
                 <label for="" class="label">Email</label>
                 <input class="input" name="email" type="text" placeholder="seu-email@provedor.com" required>
-            </div>
-                
-            <div class="field is-full-width">
-                <label for="" class="label">Senha</label>
-                <input class="input" name="password" type="password" placeholder="" required>
             </div>
 
             <div class="field is-horizontal">
@@ -41,11 +42,8 @@
             </div>
 
             <div class="field is-pulled-right mt-5">
-                <button class="button is-primary animate mr-1">
-                    Atualizar
-                </button>
                 <button class="button is-danger animate disabled">
-                    Deletar
+                    Remover usuário
                 </button>
             </div>
         </form>
@@ -84,6 +82,9 @@
             })
         } 
 
-        fill(1)
+        var url = document.URL.split("/")
+        var id = url[url.length-1]
+
+        fill(id)
     </script>
 {{ end }}
