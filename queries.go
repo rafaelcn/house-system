@@ -21,7 +21,7 @@ const (
 			USER_MAIL = $2,
 			USER_PASSWORD = $3,
 			USER_PHONE = $4,
-			USER_BIRTH = $5,
+			USER_BIRTH = $5
 		WHERE USER_ID = $6;
 	`
 	SelectUser = `
@@ -36,6 +36,13 @@ const (
 
 	AddObject = `
 		INSERT INTO TB_OBJECT VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9);
+	`
+	UpdateObject = `
+		UPDATE TB_OBJECT SET 
+			OBJECT_NAME = $1, 
+			OBJECT_STATUS = $2, 
+			OBJECT_TYPE = $3
+		WHERE OBJECT_ID = $4;
 	`
 	RemoveObject = `
 		DELETE FROM TB_OBJECT WHERE OBJECT_ID = $1;
@@ -73,5 +80,16 @@ const (
 	Login = `
 		SELECT * FROM TB_USER 
 		WHERE USER_EMAIL = $1 AND USER_PASSWORD = $2;
+	`
+
+	InviteNew = `
+		INSERT INTO TB_INVITE (INVITE_ID, INVITE_SENDER, INVITE_RECEIVER) 
+		VALUES(default, $1, $2);
+	`
+	InviteDelete = `
+		DELETE FROM TB_INVITE WHERE INVITE_ID = $1;
+	`
+	InviteFetch = `
+		SELECT * FROM TB_INVITE WHERE INVITE_RECEIVER = $1;
 	`
 )
