@@ -1,5 +1,5 @@
 {{ define "content" }}
-<section class="container is-vhcentered">
+<section class="container is-vhcentered fade">
     <div class="column is-centered is-5-widescreen">
         <div class="has-text-centered mb-5">
             <i class="fa fa-10x fa-qrcode"></i>
@@ -28,10 +28,14 @@
                 </div>
             </div>
 
-            <div class="field is-pulled-right mt-3">
+            <div class="field level-right mt-3">
                 <button class="button is-primary animate">
                     Adicionar acessório
                 </button>
+            </div>
+
+            <div id="notification" class="alert mt-5 d-hidden">
+                
             </div>
         </form>
     </div>
@@ -43,20 +47,36 @@
         $("form").submit(e => {
             e.preventDefault()
 
-            var params = new URLSearchParams()
+            var id = $("[name=code]").val()
+            var name = $("[name=name]").val()
+            var type = $("[name=type]").val()
 
-            params.append('name', $("[name=name]").val())
-            params.append('code', $("[name=code]").val())
-            params.append('type', $("[name=type]").val())
+            accessory = new Accessory(id, name, type)
 
-            var request = axios.post('/v1/object/add', params)
+            var request = accessory.insert()
 
             request.then(response => {
-                window.location.replace('/homepage')                
+                if (response.data.Status == 0) {
+                    $("#notification").addClass("is-success")
+                    $("#notification").html('O acessório foi adicionado com'+
+                        ' sucesso. <i class="far fa-laugh-wink fa-fw"></i>')
+                } else {
+                    message = 'Algo de errado aconteceu ao tentar inserir o '+ 
+                        'acessório. Verifique a conexão de internet'
+
+                    $("#notification").addClass("is-danger")
+                    $("#notification").text(message)
+
+                }
             }) 
 
-            request.catch(erorr => {
-                window.alert("Algum erro ocorreu ao inserir o objeto")
+            request.catch(error => {
+                $("#notification").addClass('is-danger')
+                $("#notification").text('Algum erro ocorreu ao inserir o acessório')
+            })
+
+            request.finally(() => {
+                $("#notification").removeClass('d-hidden')
             })
 
         })

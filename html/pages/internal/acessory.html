@@ -1,10 +1,10 @@
 {{ define "content" }}
-<section class="is-vhcentered">
-    <div id="acessory" class="column is-3-widescreen has-text-centered">
-        <div id="acessory-name" class="title">
+<section class="is-vhcentered fade">
+    <div id="accessory" class="column is-3-widescreen has-text-centered d-none">
+        <div id="accessory-name" class="title">
 
         </div>
-        <div id="acessory-icon" class="mt-3">
+        <div id="accessory-icon" class="mt-3">
 
         </div>
         <div id="controls" class="level mt-3">
@@ -19,10 +19,13 @@
             </div>
         </div>
         <div id="actions" class="level-right mt-5">
-            <button class="button is-danger" id="acessory-delete">
-                Excluir
+            <button class="button is-danger" id="accessory-remove">
+                Remover acessório
             </button>
         </div>
+    </div>
+    <div id="notification" class="alert mt-5 d-hidden">
+        
     </div>
 </section>
 {{ end }}
@@ -34,18 +37,54 @@
 
         var request = axios.get('/v1/object/fetch/' + id)
 
+        let accessory
+
         request.then(response => {
             var content = response.data.Content
             if (content != null) {
-                $("#acessory-name").text(content.Name)
-                $("#acessory-icon").html(Acessory.icon(content.Type).icon)
+                accessory = new Accessory(content.ID, content.Name, 
+                    content.Type)
+
+                $("#accessory-name").text(accessory.name)
+                $("#accessory-icon").html(accessory.__type.icon)
+                $("#accessory").removeClass('d-none')
 
                 var html = ''
+            } else {
+                $("#notification").addClass('is-info')
+                $("#notification").html('Acessório não encontrado.' +
+                    '<i class="far fa-frown-open fa-fw ml-2"></i>')
+                $("#notification").removeClass('d-hidden')
             }
         })
 
-        $("#acessory-delete").click(e => {
+        $("#accessory-remove").click(e => {
+            var request = accessory.delete()
 
+            request.then(response => {
+                if (response.data.Status == 0) {
+                    $("#accessory").remove()
+                    $("#notification").addClass('is-success')
+                    $("#notification").html('O acessório foi removido com'+
+                        ' sucesso. <i class="far fa-laugh-wink fa-fw"></i>')
+                } else {
+                    message = 'Algo de errado aconteceu ao tentar remover o '+ 
+                        'acessório. Verifique a conexão de internet'
+
+                    $("#notification").addClass('is-danger')
+                    $("#notification").text(message)
+
+                }
+            }) 
+
+            request.catch(error => {
+                $("#notification").addClass('is-danger')
+                $("#notification").text('Algum erro ocorreu ao remover o acessório')
+            })
+
+            request.finally(() => {
+                $("#notification").removeClass('d-hidden')
+            })
         })
     </script>
 {{ end }}

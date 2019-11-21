@@ -68,6 +68,14 @@ button {
     margin-left: 3px;
 }
 
+.ml-2 {
+    margin-left: 10px;
+}
+
+.ml-3 {
+    margin-left: 20px;
+}
+
 .p-1 {
     padding: 5px !important;
 }
@@ -148,12 +156,26 @@ button {
 }
 
 .d-none {
-    display: none;
+    display: none !important;
 }
 
 .d-hidden {
     visibility: hidden;
 } 
+
+.fade {
+    animation: fade-in .6s linear;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
 
 .is-vhcentered {
     height:90vh; 

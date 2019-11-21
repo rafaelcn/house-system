@@ -1,5 +1,5 @@
 {{ define "content" }}
-<div class="container is-fluid">
+<div class="container is-fluid fade">
     <div class="columns is-multiline" id="acessories">
     </div>
 
@@ -23,7 +23,7 @@
     <script>
     'use strict'
 
-    let acessories = $("#acessories")
+    let accessories = $("#acessories")
     let data = axios.get('/v1/objects')
 
     data.then(response => {
@@ -31,8 +31,8 @@
 
         if (response.data.Content != null) {
             response.data.Content.forEach(elem => {
-                var obj = Acessory.get(elem.ID, elem.Type, elem.Name)
-                acessories.append(obj)
+                var accessory = new Accessory(elem.ID, elem.Name, elem.Type)
+                accessories.append(accessory.get())
             })
         } else {
             var message = '<div class="alert is-info p-5">Nenhum objeto '+ 
