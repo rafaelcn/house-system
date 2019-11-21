@@ -5,5 +5,17 @@ function Person(id, name, birth, phone, password) {
     this.name = name;
     this.birth = birth;
     this.phone = phone;
-    
+
+
+    this.insert = () => {
+
+    }
+
+    this.update = () => {
+
+    }
+
+    this.delete = () => {
+        
+    }
 }
