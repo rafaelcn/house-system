@@ -1,5 +1,17 @@
 {{ define "content" }}
 <style>
+    body {
+        cursor: default;
+    }
+
+    img {
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+    }
+
     .bg-1 {
         position: absolute;
         top: -55%;
@@ -19,7 +31,7 @@
         height: 40% !important;
         opacity: .6;
         animation: skew-forward 35s linear infinite;
-        z-index: -2;
+        z-index: -3;
     }
 
     .bg-3 {
@@ -33,49 +45,34 @@
         z-index: -5;
     }
 
+    .bg-4 {
+        position: absolute;
+        bottom: -90%;
+        left: -10%;
+        width: calc(80vh * 1.275018532);
+        opacity: .6;
+        z-index: -1;
+        transform: rotate(-200deg);
+    }
+
+    .image-topic {
+        position: absolute;
+        top: 0;
+        left: 5%;
+        width: calc(37vh * 1.275018532);
+        z-index: -1;
+    }
+
+    .image-topic2 {
+        position: absolute;
+        top: 60%;
+        left: 72%;
+        width: calc(37vh * 1.275018532);
+        z-index: -1;
+    }
+
     .card {
         min-height: 400px !important;
-    }
-
-    #concept::after {
-        position: absolute;
-        left: 10%;
-        top: 8%;
-        content: "";
-        background: rgb(18, 153, 255);
-        padding: 130px;
-        border-radius: 100%;
-        z-index: -2;
-        animation: bubble 20s linear infinite;
-    }
-
-    @keyframes bubble {
-        0% { 
-            transform: rotate(0);
-
-            transform: skewX(0);
-            transform: skewY(0);
-        }
-
-        25% {
-            transform: skewX(10deg);
-            transform: skewY(10deg);
-        }
-
-        50% {
-            transform: skewX(-10deg);
-            transform: skewY(-10deg);
-        }
-
-        75% {
-            transform: skewX(15deg);
-            transform: skewY(15deg);
-        }
-
-        100% {
-            transform: skewX(0deg);
-            transform: skewY(0deg);
-        }
     }
 </style>
 
@@ -87,9 +84,12 @@
         <img src="/assets/img/elements/background.png" alt="" srcset="">
     </div>
 
-    <div class="columns">
+    <div class="columns" id="concept">
         <div class="column has-text-centered is-4" style="margin-top:7%;">
-                <h1 class="title" id="concept">O CONCEITO</h1>
+                <h1 class="title">O CONCEITO</h1>
+                <div class="image-topic is-hidden-mobile">
+                    <img src="/assets/img/elements/background-2.png" alt="">
+                </div>
         </div>
         <div class="column has-text-justified p-1">
                 <p>O Rest é um sistema de controle automatizado residencial. Ele
@@ -119,7 +119,46 @@
                 que o sistema proporciona aos usuários.</p>
         </div>
     </div>
+
+    <div id="how-does-it-work" style="margin-top: 70px;">
+            <div class="columns">
+                <div class="column has-text-centered is-4 is-hidden-desktop" style="margin-top:5%;">
+                    <h1 class="title" id="how-does-it-work">COMO FUNCIONA?</h1>
+                    <div class="image-topic2 is-hidden-mobile">
+                        <img src="/assets/img/elements/background-2.png" alt="">
+                    </div>
+                </div> 
+                <div class="column has-text-justified p-1">
+                    <p>Essa parte é bem fácil. Primeiro você se registra no
+                    sistema e entra na plataforma. Logo no login você vai poder
+                    criar sua casa do seu jeitinho e começar a adicionar
+                    acessórios.</p> 
+                    
+                    <div class="mt-5"></div>
+    
+                    <p>O sistema oferece alguns tipos de acessórios por padrão
+                    mas você pode adicionar quantos quiser. A! E além disso você
+                    pode também adicionar pessoas para controlar os acessórios
+                    por email.</p> 
+    
+                    <div class="mt-5"></div>
+                    
+                    <p>Para controlar os acessórios também é muito fácil, na
+                    página inicial você poderá ver os acessórios que estão
+                    atualmente em seu controle. Ao clicar em qualquer um deles
+                    você poderá fazer ajustes mais finos na intensidade de uma
+                    luz, o nome do acessório entre outras propriedades.</p> 
+                </div>
+                <div class="column has-text-centered is-4 is-hidden-touch" style="margin-top:5%;">
+                    <h1 class="title" id="how-does-it-work">COMO FUNCIONA?</h1>
+                    <div class="image-topic2 is-hidden-mobile">
+                        <img src="/assets/img/elements/background-2.png" alt="">
+                    </div>
+                </div>    
+            </div>
+        </div>
 </section>
+
 <section id="about-us">
     <div class="bg-2">
         <img src="/assets/img/elements/background.png" alt="" srcset="">
@@ -233,6 +272,59 @@
     </div>
     </div>
 </section>
+
+<footer class="container is-fluid" style="margin-top: 3vh">
+    <div class="bg-4">
+        <img src="/assets/img/elements/background-2.png" alt="">
+    </div>
+    <div class="columns">
+        <div class="column is-3">
+            <h1 class="subtitle">Siga-nos nas redes sociais</h1>
+
+            <ul class="">
+                <li>
+                    <a href="#" class="button is-light mb-2">
+                        <span style="display: inline;">
+                        <i class="fab fa-facebook fa-lg"></i>
+                        Facebook
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="button is-light">
+                        <span style="display: inline;">
+                        <i class="fab fa-instagram fa-lg"></i> 
+                        Instagram
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="column">
+            <h1 class="subtitle">Para desenvolvedores</h1>
+
+            <ul class="">
+                <li>
+                    <a href="https://github.com/rafaelcn/house-system/issues/new" target="_blank" class="button is-light mb-2">
+                        <span style="display: inline;">
+                            <i class="fa fa-bug fa-lg"></i>
+                            <span>Reporte um bug</span>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/rafaelcn/house-system/"
+                    target="_blank" class="button is-light">
+                        <span style="display: inline;">
+                            <i class="fab fa-github fa-lg"></i>
+                            <span>Contribua</span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
 {{ end }}
 
 {{ define "script" }}
