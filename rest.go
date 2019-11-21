@@ -299,6 +299,11 @@ func HandleLogin(w http.ResponseWriter, r *http.Request) {
 	respond(&w, response)
 }
 
+// HandleInvite ...
+func HandleInvite(w http.ResponseWriter, r *http.Request) {
+
+}
+
 // HandleLogout ...
 func HandleLogout(w http.ResponseWriter, r *http.Request) {
 	// TODO: Terminate user session

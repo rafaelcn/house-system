@@ -26,6 +26,7 @@ func Serve(address string, port string) {
 
 	// Internal pages
 	router.HandleFunc("/homepage", HandleHomePage)
+	router.HandleFunc("/invitations", HandleInvitationsPage)
 	router.HandleFunc("/settings", HandleSettingsPage)
 	router.HandleFunc("/acessory/{serial}", HandleAcessoryPage)
 	router.HandleFunc("/invite", HandleInvitePage)
@@ -45,6 +46,8 @@ func Serve(address string, port string) {
 	router.HandleFunc("/v1/objects", HandleObjects)
 	router.HandleFunc("/v1/object/{action}", HandleObject)
 	router.HandleFunc("/v1/object/{action}/{id}", HandleObject)
+
+	router.HandleFunc("/v1/invite/{action}", HandleInvite)
 
 	router.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/",
 		http.FileServer(http.Dir("./html/assets/"))))
@@ -236,6 +239,20 @@ func HandleHelpPage(w http.ResponseWriter, r *http.Request) {
 
 	d := PageData{
 		Title: "Ajuda",
+	}
+
+	t.Execute(w, d)
+}
+
+// HandleInvitationsPage ...
+func HandleInvitationsPage(w http.ResponseWriter, r *http.Request) {
+	t := template.Must(template.ParseFiles(
+		"html/templates/internal.html",
+		"html/pages/internal/invitations.html",
+	))
+
+	d := PageData{
+		Title: "Convites",
 	}
 
 	t.Execute(w, d)
