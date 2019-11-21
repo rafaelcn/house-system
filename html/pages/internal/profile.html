@@ -4,7 +4,7 @@
     <div class="column is-centered is-4-widescreen">
         <div class="has-text-centered" style="display: flex; align-items: center; flex-direction: column">
             <figure class="image is-128x128">
-                <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                <img class="is-rounded" src="" id="profile-image">
             </figure>
             <h5 class=" is-size-6 has-text-grey" id="name">
                 
@@ -87,5 +87,10 @@
         } 
 
         fill(1)
+
+        var images = ["rafael.png", "joao.png", "rodrigo.png", "vinicius.png"]
+        var index = Math.floor(Math.random()*4)
+
+        $("#profile-image").attr("src", "/assets/img/profiles/" + images[index])
     </script>
 {{ end }}
