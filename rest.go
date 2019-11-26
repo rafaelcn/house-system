@@ -315,7 +315,7 @@ func HandleLogin(w http.ResponseWriter, r *http.Request) {
 		
 	case nil:
 		// TODO: Create an user session
-		response.Content = "authorized"
+		response.Content = user.ID
 	default:
 		log.Printf("[!] Unknown error: %v", err)
 	}
