@@ -1,7 +1,7 @@
 {{ define "content" }}
 <section class="container is-fluid fade">
     <div class="columns">
-        <div class="column">
+        <div class="column is-half-desktop">
             <h1 class="title is-hidden-touch">CONFIGURE SUA CASA</h1>
             <h1 class="title is-hidden-desktop ellipsis">CONFIGURAÇÕES</h1>
 
@@ -41,7 +41,7 @@
             </div>
         </div>
         
-        <div class="column has-text-grey">
+        <div class="column has-text-grey is-half-desktop">
             <h1 class="title">INSTRUÇÕES</h1>
             <br>
             <p>Nesta página você poderá configurar sua casa
@@ -72,7 +72,7 @@
                                     +'</figure>'
                                 +'</div>'
                                 +'<div class="card-content is-paddingless">'
-                                    +'<p class="mt-5 is-size-6">' + person.Name + '</p>'
+                                    +'<p class="mt-5 is-size-6">' + person.Name.trim() + '</p>'
                                 +'</div>'
                             +'</div>'
                         +'</a>'
