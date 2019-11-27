@@ -339,8 +339,9 @@ func HandleInvite(w http.ResponseWriter, r *http.Request) {
 
 	switch vars["action"] {
 	case "new":
+		sender := r.Form.Get("userID")
 		email := r.Form.Get("email")
-		db.Execute(InviteNew, []interface{}{email})
+		db.Execute(InviteNew, []interface{}{sender, email})
 
 		response.Status = StatusOk
 	case "fetch":
