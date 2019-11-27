@@ -11,17 +11,31 @@
             <div class="level-left">
                 <div class="field">
                     <input id="status" type="checkbox" class="switch is-outlined is-warning" checked="checked">
-                    <label for="status"></label>
+                    <label for="status"> on / off </label>
                 </div>
             </div>
             <div class="level-right">
-                <input class="slider is-fullwidth" step="1" min="0" max="100" value="50" type="range">
+                <div class="column is-fullwidth">
+                    <input id="slider" class="slider is-fullwidth" step="1" min="0" max="100" value="50" type="range">
+                    <div class="column is-fullwidth">
+                        <label id="label-slider" for="slider"></label>
+                    </div>
+                </div>
+                
             </div>
         </div>
-        <div id="actions" class="level-right mt-5">
-            <button class="button is-danger" id="accessory-remove">
-                Remover acessório
-            </button>
+        <div id="actions" class="level mt-5">
+            <div class="level-left ml-1 mr-1">
+                <button class="button is-success" id="accessory-update">
+                    Salvar
+                </button>
+            </div>
+            
+            <div class="level-right ml-1 mr-1">
+                <button class="button is-danger" id="accessory-remove">
+                    Remover acessório
+                </button>
+            </div>
         </div>
     </div>
     <div id="notification" class="alert mt-5 d-hidden">
@@ -48,6 +62,7 @@
                 $("#accessory-name").text(accessory.name)
                 $("#accessory-icon").html(accessory.__type.icon)
                 $("#accessory").removeClass('d-none')
+                $("#label-slider").text(accessory.__type.property)
 
                 var html = ''
             } else {
@@ -80,11 +95,39 @@
             request.catch(error => {
                 $("#notification").addClass('is-danger')
                 $("#notification").text('Algum erro ocorreu ao remover o acessório')
+
             })
 
             request.finally(() => {
                 $("#notification").removeClass('d-hidden')
             })
         })
+
+        $("#accessory-update").click(e => {
+            var request = accessory.update()
+
+            request.then(response => {
+                if (response.data.Status == 0) {
+                    window.location.replace("/homepage")
+                } else {
+                    message = 'Algo de errado aconteceu ao tentar atualizar o '+ 
+                        'acessório. Verifique a conexão de internet'
+
+                    $("#notification").addClass('is-danger')
+                    $("#notification").text(message)
+
+                }
+            }) 
+
+            request.catch(error => {
+                $("#notification").addClass('is-danger')
+                $("#notification").text('Algum erro ocorreu ao atualizar o acessório')
+            })
+
+            request.finally(() => {
+                $("#notification").removeClass('d-hidden')
+            })
+        })
+
     </script>
 {{ end }}
