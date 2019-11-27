@@ -43,6 +43,8 @@ func Serve(address string, port string) {
 
 	router.HandleFunc("/v1/people", HandlePeople)
 
+	router.HandleFunc("/v1/house/{id}", HandleHouseInfo)
+
 	router.HandleFunc("/v1/objects", HandleObjects)
 	router.HandleFunc("/v1/object/{action}", HandleObject)
 	router.HandleFunc("/v1/object/{action}/{id}", HandleObject)

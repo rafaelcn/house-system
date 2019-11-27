@@ -92,4 +92,8 @@ const (
 	InviteFetch = `
 		SELECT * FROM TB_INVITE WHERE INVITE_RECEIVER = $1;
 	`
+
+	SelectHouse = `
+		SELECT * FROM TB_HOUSE WHERE HOUSE_OWNER = $1;
+	`
 )

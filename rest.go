@@ -221,7 +221,7 @@ func HandleObject(w http.ResponseWriter, r *http.Request) {
 			} else {
 				_ = db.Execute(RemoveObject, []interface{}{id})
 			}
-			
+
 		case "add":
 			objectID := r.Form.Get("code")
 			objectName := r.Form.Get("name")
@@ -312,7 +312,7 @@ func HandleLogin(w http.ResponseWriter, r *http.Request) {
 	case sql.ErrNoRows:
 		e.Description = "Email or password incorrect"
 		response.Content = e
-		
+
 	case nil:
 		// TODO: Create an user session
 		response.Content = "authorized"
@@ -321,6 +321,11 @@ func HandleLogin(w http.ResponseWriter, r *http.Request) {
 	}
 
 	respond(&w, response)
+}
+
+// HandleHouseInfo ...
+func HandleHouseInfo(w http.ResponseWriter, r *http.Request) {
+	
 }
 
 // HandleInvite ...
