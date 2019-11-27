@@ -101,6 +101,7 @@
                         default:
                         }
                     } else {
+                        document.cookie = "LoggedUserID=" + response.data.Content
                         window.location.replace("/homepage")
                     }
                 }
