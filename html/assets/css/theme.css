@@ -155,6 +155,22 @@ button {
     background: rgb(60, 60, 60) !important;
 }
 
+.overflow-x { 
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.overflow-y { 
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 .d-none {
     display: none !important;
 }
@@ -189,6 +205,12 @@ button {
     -webkit-transition: all 0.2s;
     -moz-transition: all 0.2s;
     transition: all 0.2s;
+}
+
+.animate-ease-in-out {
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    transition: all 0.2s linear;
 }
 
 /* Bulma and Font Awesome overrides */
@@ -246,4 +268,8 @@ input:active, input:focus, .select:active > *, .select:focus > * {
 .fa {
     margin-left: 2px !important;
     margin-right: 2px !important;
+}
+
+nav.navbar a:hover { 
+    color: rgb(64, 144, 127) !important;
 }

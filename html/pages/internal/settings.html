@@ -1,8 +1,9 @@
 {{ define "content" }}
-<section class="section fade">
-    <div class="columns is-centered">
+<section class="container is-fluid fade">
+    <div class="columns">
         <div class="column">
-            <h1 class="title">CONFIGURE SUA CASA</h1>
+            <h1 class="title is-hidden-touch">CONFIGURE SUA CASA</h1>
+            <h1 class="title is-hidden-desktop ellipsis">CONFIGURAÇÕES</h1>
 
             <form method="POST" action="">
                 <div class="field">
@@ -12,14 +13,14 @@
                     <div class="field-body">
                         <div class="field">
                             <p class="control is-expanded">
-                                <input name="name" class="input" type="text" placeholder="Nome da casa">
+                                <input name="house-name" class="input" type="text" placeholder="Nome da casa">
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="field">
                     <div class="field-body">
-                        <div class="field is-grouped is-grouped-centered">
+                        <div class="field is-grouped is-grouped-right">
                             <div class="control">
                                 <button class="button is-primary">
                                     SALVAR
@@ -35,30 +36,28 @@
                 PESSOAS
             </span>
             
-            <div id="people" class="columns" style="overflow-x: auto">
+            <div id="people" class="columns overflow-x">
                 
             </div>
-            
         </div>
         
-        <div class="column">
+        <div class="column has-text-grey">
             <h1 class="title">INSTRUÇÕES</h1>
             <br>
             <p>Nesta página você poderá configurar sua casa
             assim como também os usuários da casa e suas
             permissões, caso seja administrador.</p>
             <br>
-            <p>Se você usuário mude seu email, credenciais
-            entre outras informações em seu perfil.</p>
-            
+            <p>Se você é usuário mude seu email, credenciais
+            entre outras informações em seu <a href="/profile">perfil.</a></p>
         </div>
     </div>
-    </section>
+</section>
 {{ end }}
 
-{{ define "script" }}
-    <script>
+{{ define "script" }}<script>
         var request = axios.get('/v1/people')
+        var house = axiox.get('/v1/house')
             
         request.then(response => {                
             if (response.data.Content != null) {
