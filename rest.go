@@ -339,11 +339,52 @@ func HandleInvite(w http.ResponseWriter, r *http.Request) {
 
 	switch vars["action"] {
 	case "new":
+		sender := r.Form.Get("userID")
 		email := r.Form.Get("email")
-		db.Execute(InviteNew, []interface{}{email})
+		db.Execute(InviteNew, []interface{}{sender, email})
 
 		response.Status = StatusOk
 	case "fetch":
+	}
+
+	respond(&w, response)
+}
+
+// HandleInvitations ...
+func HandleInvitations(w http.ResponseWriter, r *http.Request) {
+	db := PGSQLConnect()
+
+	rows := db.Query(FetchInvites, []interface{}{})
+
+	var response Response
+	var invites []Invite
+
+	for rows.Next() {
+		var invite Invite
+
+		err := rows.Scan(&invite.SenderID, &invite.Receiver)
+
+		switch err {
+		case sql.ErrNoRows:
+			response.Status = StatusError
+
+			errorMessage := fmt.Sprintf("Database request error, "+
+				"notify the developer about %v.", err.Error())
+
+			e := Error{
+				Code:        ErrorDatabaseResponse,
+				Description: errorMessage,
+			}
+
+			response.Content = e
+			break
+		case nil:
+			response.Status = StatusOk
+
+			invites = append(invites, invite)
+
+			response.Content = invites
+		}
 	}
 
 	respond(&w, response)

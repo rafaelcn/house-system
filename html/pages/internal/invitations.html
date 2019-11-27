@@ -9,17 +9,71 @@
 
     </div>
 
-    <div class="column has-text-centered">
-
+    <div id="invites" class="columns has-text-centered">
+        
     </div>
 </section>
 {{ end }}
 
 {{ define "script" }}
     <script>
-        $("#notification").text("Opa, parece que não há nenhum convite por aqui.")
-        $("#notification").addClass("is-info")
+        async function getSenderName(id) {
+            let request
+            let name
 
+            try{
+                request = await axios.get('/v1/user/fetch/' + id)
+                name = request.data.Content.Name.trim()
+                console.log(name + " (Dentro da função getSenderName)")
+                return name
+                
+            } catch(error) {
+                window.alert('Ocorreu um erro ao carregar as informações. Entre' + 
+                    ' em contato com o desenvolvedor.')
+                console.log(error)
+            }
+        }
+        
+
+        async function insertInvite(invite) {
+            try{
+                console.log(invite)
+                let name = await getSenderName(invite.SenderID)
+                
+                $('#invites').append(
+                '<div class="column is-3 has-text-centered">'
+                    +'<a href="#">'
+                        +'<div class="card p-5">'
+                            +'<div class="card-image">'
+                                +'<figure class="image">'
+                                    +'<i class="fa fa-5x fa-envelope "></i>'
+                                +'</figure>'
+                            +'</div>'
+                            +'<div class="card-content is-paddingless">'
+                                +'<p class="mt-5 is-size-6">' + 'de: ' + name + '</p>'
+                                +'<p class="is-size-6">' + 'para: ' + invite.Receiver + '</p>'
+                            +'</div>'
+                        +'</div>'
+                    +'</a>'
+                +'</div>'
+            )
+            } catch(error){
+                console.log(error)
+            }
+        }
+
+        async function getInvites() {
+            var request = await axios.get('/v1/invitations')        
+            
+            if(request.data.Content != null) {
+                request.data.Content.forEach(invite => insertInvite(invite))
+            } else{
+                $("#notification").text("Opa, parece que não há nenhum convite por aqui.")
+                $("#notification").addClass("is-info")
+            }
+        }
+
+        getInvites()
         
     </script>
 {{ end }}

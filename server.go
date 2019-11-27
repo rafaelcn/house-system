@@ -51,6 +51,8 @@ func Serve(address string, port string) {
 
 	router.HandleFunc("/v1/invite/{action}", HandleInvite)
 
+	router.HandleFunc("/v1/invitations", HandleInvitations)
+
 	router.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/",
 		http.FileServer(http.Dir("./html/assets/"))))
 	router.Use(MiddlewareStaticFiles)

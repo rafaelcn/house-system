@@ -36,8 +36,9 @@
             $("#notification").removeClass('is-success', 'is-danger')
 
             var email = $("[name=email]").val()
+            var userID = document.cookie.split("=").reverse().shift()
 
-            var request = axios.get('/v1/invite/new', {params: {"email": email}})
+            var request = axios.get('/v1/invite/new', {params: {"email": email, "userID": userID}})
 
             request.then(response => {
                 if (response.data.Status == 0) {
