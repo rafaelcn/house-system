@@ -85,8 +85,9 @@
                 console.log(error)
             })
         } 
-        let UserID = document.cookie.split("=").reverse().shift()
-        fill(UserID)
+
+        let id = document.cookie.split("=").reverse().shift()
+        fill(id)
 
         var images = ["rafael.png", "joao.png", "rodrigo.png", "vinicius.png"]
         var index = Math.floor(Math.random()*4)
