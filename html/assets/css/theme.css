@@ -269,7 +269,3 @@ input:active, input:focus, .select:active > *, .select:focus > * {
     margin-left: 2px !important;
     margin-right: 2px !important;
 }
-
-nav.navbar a:hover { 
-    color: rgb(64, 144, 127) !important;
-}
