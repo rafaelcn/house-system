@@ -57,13 +57,13 @@
 
 {{ define "script" }}<script>
         var request = axios.get('/v1/people')
-        var house = axiox.get('/v1/house')
+        var house = axios.get('/v1/house')
             
         request.then(response => {                
             if (response.data.Content != null) {
                 response.data.Content.forEach(person => {
                     $('#people').append(
-                    '<div class="column is-3 has-text-centered">'
+                    '<div class="column is-3 has-text-centered" style="min-height: 100px !important;">'
                         +'<a href="/user-settings/'+ person.ID +'">'
                             +'<div class="card p-5">'
                                 +'<div class="card-image">'
