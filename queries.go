@@ -52,7 +52,7 @@ const (
 	`
 
 	FetchObjects = `
-			SELECT * FROM TB_OBJECT;
+		SELECT * FROM TB_OBJECT;
 	`
 
 	SetStateObject = `
@@ -95,5 +95,9 @@ const (
 
 	SelectHouse = `
 		SELECT * FROM TB_HOUSE WHERE HOUSE_OWNER = $1;
+	`
+
+	FetchInvites = ` 
+		SELECT INVITE_SENDER, INVITE_RECEIVER FROM TB_INVITE;
 	`
 )
