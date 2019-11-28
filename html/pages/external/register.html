@@ -56,22 +56,31 @@
             <form method="POST" action="/v1/user/sign-up">
                 <div class="field">
                     <label class="label">Nome completo</label>
-                    <div class="control">
-                        <input name="name" class="input" type="text" placeholder="Rafael Campos Nunes">
+                    <div class="control has-icons-right">
+                        <input name="name" class="input" type="text" placeholder="Rafael Campos Nunes" required >
+                        <span class="icon is-small is-right" style="font-size:8px;">
+                            <i class="fas fa-asterisk"></i>
+                        </span>
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Email</label>
-                    <div class="control">
-                        <input name="email" class="input" type="email" placeholder="rafaelnunes@outlook.com">
+                    <div class="control has-icons-right">
+                        <input name="email" class="input" type="email" placeholder="rafaelnunes@outlook.com" required>
+                        <span class="icon is-small is-right" style="font-size:8px;">
+                            <i class="fas fa-asterisk"></i>
+                        </span>
                     </div>
                 </div>
                 
                 <div class="field">
                     <label class="label">Senha</label>
-                    <div class="control">
-                        <input name="password" class="input" type="password" placeholder="••••••••••••••••••••">
+                    <div class="control has-icons-right">
+                        <input name="password" class="input" type="password" placeholder="••••••••••••••••••••" required>
+                        <span class="icon is-small is-right" style="font-size:8px;">
+                            <i class="fas fa-asterisk"></i>
+                        </span>
                     </div>
                 </div>
                 
@@ -79,20 +88,31 @@
                     <div class="field-body">
                         <div class="field">
                             <label class="label">Data de Nascimento</label>
-                            <p class="control is-expanded">
-                                <input name="birth" class="input" type="text" data-mask="00/00/0000" placeholder="15/07/1996">
+                            
+                            <p class="control is-expanded has-icons-right">
+                                <input name="birth" class="input" type="text" data-mask="00/00/0000" placeholder="15/07/1996" required>
+                                <span class="icon is-small is-right" style="font-size:8px;">
+                                    <i class="fas fa-asterisk"></i>
+                                </span>
                             </p>
                         </div>
 
                         <div class="field">
                             <label class="label">Telefone</label>
-                            <p class="control is-expanded">
-                                <input name="phone" class="input" data-mask="(00) 00000-0000" type="tel" placeholder="(45) 99921-1235">
+                            <p class="control is-expanded has-icons-right">
+                                <input name="phone" class="input" data-mask="(00) 00000-0000" type="tel" placeholder="(45) 99921-1235" required>
+                                <span class="icon is-small is-right" style="font-size:8px;">
+                                    <i class="fas fa-asterisk"></i>
+                                </span>
                             </p>
                         </div>
                     </div>
                 </div>
                 
+                <div class="level-right">
+                    <p class="help">Campos com asterisco são obrigatórios</p>
+                </div>
+
                 <div class="level-right mt-5">
                     <p>Ao clicar em <b>criar</b> conta você aceita os <a href="#">Termos e Condições de Uso</a> da plataforma.</p>
                 </div>
