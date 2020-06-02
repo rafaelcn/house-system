@@ -1,4 +1,4 @@
-# Rest
+# Rest⋅
 
 This is a smart system to control your house.
 
